@@ -1,6 +1,6 @@
-// Placeholder content shared by all three landing-page mockups (build plan step 2).
-// Numbers here are illustrative only — the real build computes these from row
-// counts (spec section 8.1) rather than hardcoding them.
+// Placeholder landing-page content (build plan step 2/8). Numbers here are
+// illustrative only — the real build computes these from row counts (spec
+// section 8.1) rather than hardcoding them.
 
 export const heroCopy = {
   eyebrow: "National Centre for Polar and Ocean Research",
@@ -15,30 +15,6 @@ export const stats = [
   { label: "Publications catalogued", value: 76 },
   { label: "Media items", value: 310 },
 ];
-
-export const stations = [
-  {
-    id: "maitri",
-    name: "Maitri",
-    program: "Antarctic",
-    detail: "Operational research station, Schirmacher Oasis, since 1989.",
-    position: { x: 22, y: 78 },
-  },
-  {
-    id: "bharati",
-    name: "Bharati",
-    program: "Antarctic",
-    detail: "Operational research station, Larsemann Hills, since 2012.",
-    position: { x: 62, y: 82 },
-  },
-  {
-    id: "himadri",
-    name: "Himadri",
-    program: "Arctic",
-    detail: "Research station at Ny-Alesund, Svalbard, since 2008.",
-    position: { x: 48, y: 12 },
-  },
-] as const;
 
 export const programSections = [
   {
