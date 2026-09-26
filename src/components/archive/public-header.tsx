@@ -10,6 +10,8 @@ export const archiveNav = [
   { href: "/archive?type=publication", label: "Publications" },
   { href: "/archive?type=media", label: "Media" },
   { href: "/archive?type=activity", label: "Activities" },
+  { href: "/stations", label: "Stations" },
+  { href: "/timeline", label: "Timeline" },
 ];
 
 // Header for public archive pages (the landing page has its own overlay header).

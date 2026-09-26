@@ -7,6 +7,7 @@ import { CinematicHero } from "@/components/landing/cinematic-hero";
 import { ProgramSection } from "@/components/landing/program-section";
 import { footerLinks, programSections } from "@/lib/mock-landing-data";
 import { archiveCounts, latestPublished } from "@/lib/archive";
+import { StationMap } from "@/components/archive/station-map";
 import {
   AntarcticGallery,
   ArcticGallery,
@@ -76,6 +77,22 @@ export default async function Home() {
             {galleries[program.key]}
           </ProgramSection>
         ))}
+
+        <section className="dark bg-black py-20 text-foreground sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">Stations</p>
+            <h2 className="mt-3 max-w-2xl text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">
+              From Goa to both poles and the Himalaya
+            </h2>
+            <div className="mt-12">
+              <StationMap showList={false} />
+            </div>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <Link href="/stations" className="underline underline-offset-4">All stations</Link>
+              <Link href="/timeline" className="underline underline-offset-4">Program timeline since 1981</Link>
+            </div>
+          </div>
+        </section>
 
         <section className="border-y bg-muted/40">
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-14 sm:grid-cols-4">
