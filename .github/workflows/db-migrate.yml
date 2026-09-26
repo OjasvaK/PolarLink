@@ -1,0 +1,21 @@
+name: Database migration
+
+# Manual only — this touches the live Supabase database, so it should never
+# run automatically on every push. Trigger it from the Actions tab, or with
+# `gh workflow run db-migrate.yml`.
+on:
+  workflow_dispatch:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npx prisma migrate dev --name init
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
