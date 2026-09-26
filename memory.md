@@ -30,6 +30,20 @@ This file tracks what's been done and what's next. Update the two lists below as
   - Added a light institutional accent color (polar blue, `--primary`/`--ring`/`--accent` in `globals.css`) instead of shadcn's default grayscale — applies to all three mockups equally, not a "direction" variable.
   - `scripts/screenshot-mockups.mjs` (Playwright, not the test runner) captures all six screenshots on demand — rerun it after any change to the mockups.
 
+## Completed (continued, 2026-09-26 session 2)
+
+- [x] Explored a reference site the user liked (marsrejects.com) via Playwright screenshots — a dark/edgy comic-style Framer site for a graphic-novel collection. Not usable as a literal template (tone conflicts with spec's institutional requirement), but its *mechanic* (full-bleed photo backgrounds with scroll-triggered zoom/transitions) was the useful takeaway.
+- [x] User direction, confirmed via questions: "cinematic documentary" mood (BBC Earth / NatGeo Explorer / NASA-ESA style) — dark, dramatic real photography, still institutionally credible. Not the comic/streetwear intensity of the reference site itself.
+- [x] Sourced 4 real, properly licensed candidate photos (Wikimedia Commons) and sent them to the user directly via SendUserFile — inline tool-result images are NOT visible to the user in this environment, only SendUserFile actually reaches them. Remember this for any future "show me the image" request.
+  - Bharati Station (Antarctica) — public domain
+  - Maitri Station aerial 2005 — GODL-India, requires attribution to Ministry of Earth Sciences
+  - Byrd Glacier (NASA Landsat) — public domain
+  - **Aurora over Ny-Alesund, Svalbard — CC BY 2.0, credit: Chris Pirner / NASA Goddard — this is the one the user picked.**
+- [x] Built Direction 4 at `/preview/mockup-4`: a cinematic hero using the aurora photo with a continuous Ken Burns zoom (CSS keyframes on an inner wrapper) plus JS scroll-parallax (translateY on an outer wrapper — kept as two separate DOM layers so the two transforms don't clobber each other), both skipped under `prefers-reduced-motion`. Photo credit rendered as a small linked caption in the hero's corner. Rest of the page (stats/featured/footer) still follows the light/dark toggle; only the hero stays permanently dark/cinematic.
+- [x] `src/lib/image-credits.ts` created — real license/attribution metadata per image, meant to also feed the About/attribution page later (spec §8.7 needs real credits, not fake ones).
+- [x] Real image asset committed at `public/images/hero/ny-alesund-aurora.jpg` (resized to 2400px wide, ~480KB, via a PowerShell/System.Drawing resize — the original 8566px panorama was too large for SendUserFile's upload, a useful trick to remember).
+- **Awaiting the user's confirmation on Direction 4** before locking it in as the real landing page and updating the spec's design-direction record.
+
 ## Currently blocked on
 
 - **Waiting on the user to pick a landing-page direction** (or ask for a merge) from the three mockups above before any further page is built. This is a hard gate per spec §12 step 2 — do not guess.

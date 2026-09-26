@@ -5,7 +5,7 @@ import { chromium } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 
 const outDir = process.argv[2] ?? "screenshots";
-const mockups = ["mockup-1", "mockup-2", "mockup-3"];
+const mockups = ["mockup-1", "mockup-2", "mockup-3", "mockup-4"];
 const themes = ["light", "dark"];
 
 await mkdir(outDir, { recursive: true });

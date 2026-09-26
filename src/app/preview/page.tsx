@@ -19,6 +19,12 @@ const directions = [
     description:
       "Hero entrance and the station route diagram are both driven by anime.js timelines, hand-built with no third-party UI kit.",
   },
+  {
+    href: "/preview/mockup-4",
+    title: "Direction 4 — cinematic documentary",
+    description:
+      "Full-bleed real photography (aurora over Ny-Alesund, CC BY 2.0) with a slow Ken Burns zoom and scroll parallax, inspired by marsrejects.com's mechanic but restyled for an institutional tone.",
+  },
 ];
 
 export default function PreviewIndex() {
