@@ -1,4 +1,5 @@
 import type { Role } from "@/generated/prisma/enums";
+import type { UploadBucket } from "@/lib/upload-rules";
 
 // One registry describing every submittable content type (spec sections 7,
 // 8.4, 8.5). Forms, validation, My Submissions, and the review queue are all
@@ -24,6 +25,8 @@ export type FieldDef = {
   placeholder?: string;
   options?: readonly { value: string; label: string }[];
   maxLength?: number;
+  // For url fields: also offer a file upload into this storage bucket.
+  upload?: UploadBucket;
 };
 
 export type ContentTypeDef = {
@@ -76,7 +79,7 @@ export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
       { name: "startDate", label: "Start date", kind: "date", required: true },
       { name: "endDate", label: "End date", kind: "date" },
       { name: "summary", label: "Summary", kind: "textarea", required: true, maxLength: 10000 },
-      { name: "reportFileUrl", label: "Report link", kind: "url", help: "Link to the report PDF." },
+      { name: "reportFileUrl", label: "Report PDF", kind: "url", upload: "documents", help: "Upload the report, or paste a link to it." },
     ],
     refine: (data) => {
       const start = data.startDate as Date | null;
@@ -97,14 +100,14 @@ export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
       { name: "tags", label: "Topic tags", kind: "list", help: "Comma-separated, e.g. glaciology, ice cores" },
       { name: "collectionDate", label: "Collection date", kind: "date" },
       { name: "format", label: "Format", kind: "text", required: true, maxLength: 60, placeholder: "e.g. NetCDF, CSV" },
-      { name: "fileUrl", label: "File link", kind: "url" },
+      { name: "fileUrl", label: "Data file", kind: "url", upload: "documents", help: "CSV, NetCDF, JSON, ZIP, XLSX or PDF, up to 50 MB." },
       { name: "externalUrl", label: "External repository link", kind: "url" },
       { name: "license", label: "License", kind: "text", maxLength: 80, placeholder: "e.g. CC BY 4.0" },
       expeditionLink,
     ],
     refine: (data) => {
       if (!data.fileUrl && !data.externalUrl) {
-        return { fileUrl: "Provide a file link or an external repository link." };
+        return { fileUrl: "Upload a data file or give an external repository link." };
       }
     },
   },
@@ -142,7 +145,7 @@ export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
           { value: "VIDEO", label: "Video" },
         ],
       },
-      { name: "url", label: "Media link", kind: "url", required: true },
+      { name: "url", label: "Photo or video", kind: "url", required: true, upload: "media", help: "JPEG, PNG, WebP, AVIF, MP4 or WebM, up to 50 MB." },
       { name: "altText", label: "Alt text", kind: "text", required: true, maxLength: 300, help: "Describe what the image or video shows, for screen-reader users." },
       { name: "caption", label: "Caption", kind: "textarea", maxLength: 1000 },
       { name: "tags", label: "Tags", kind: "list", help: "Comma-separated" },
@@ -160,7 +163,7 @@ export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
       { name: "title", label: "Title", kind: "text", required: true, maxLength: 200 },
       { name: "date", label: "Date", kind: "date", required: true },
       { name: "description", label: "Description", kind: "textarea", required: true, maxLength: 10000 },
-      { name: "coverImageUrl", label: "Cover image link", kind: "url" },
+      { name: "coverImageUrl", label: "Cover image", kind: "url", upload: "media" },
     ],
   },
 };

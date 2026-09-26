@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { UploadField } from "@/components/content/upload-field";
 import type { SubmissionFormState } from "@/app/submissions/actions";
 import { contentTypes, type ContentSlug, type FieldDef } from "@/lib/content/types";
 
@@ -120,6 +121,10 @@ function FieldInput({
       control = <Input {...common} type="number" inputMode="numeric" min={1900} />;
       break;
     case "url":
+      if (field.upload) {
+        control = <UploadField bucket={field.upload} inputProps={common} />;
+        break;
+      }
       control = <Input {...common} type="url" inputMode="url" placeholder={field.placeholder ?? "https://"} />;
       break;
     default:
