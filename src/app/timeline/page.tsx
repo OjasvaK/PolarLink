@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PublicHeader } from "@/components/archive/public-header";
+import { SiteFooter } from "@/components/site-footer";
 import { Reveal } from "@/components/landing/reveal";
 import { Badge } from "@/components/ui/badge";
 import type { Program } from "@/generated/prisma/enums";
@@ -53,9 +54,9 @@ export default async function TimelinePage({ searchParams }: PageProps<"/timelin
   const filters = [{ value: undefined, label: "All programs" }, ...programs];
 
   return (
-    <div className="min-h-svh bg-background">
+    <div className="flex min-h-svh flex-col bg-background">
       <PublicHeader />
-      <main className="mx-auto max-w-4xl px-6 py-12">
+      <main className="mx-auto w-full flex-1 max-w-4xl px-6 py-12">
         <h1 className="text-4xl font-extrabold tracking-tight">Program timeline</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Milestones of India&apos;s polar and Himalayan research since 1981,
@@ -116,6 +117,7 @@ export default async function TimelinePage({ searchParams }: PageProps<"/timelin
           ))}
         </ol>
       </main>
+      <SiteFooter />
     </div>
   );
 }

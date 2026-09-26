@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { SiteHeader } from "@/components/landing/site-header";
 import { CinematicHero } from "@/components/landing/cinematic-hero";
 import { ProgramSection } from "@/components/landing/program-section";
-import { footerLinks, programSections } from "@/lib/mock-landing-data";
+import { programSections } from "@/lib/mock-landing-data";
+import { SiteFooter } from "@/components/site-footer";
 import { archiveCounts, latestPublished, publishedBlurbs } from "@/lib/archive";
 import { StationMap } from "@/components/archive/station-map";
 import { SampleBadge } from "@/components/archive/sample-badge";
@@ -151,21 +151,7 @@ export default async function Home() {
         )}
       </main>
 
-      <footer className="border-t">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-10 text-sm text-muted-foreground sm:flex-row sm:justify-between">
-          <span>{footerLinks.contact}</span>
-          <div className="flex items-center gap-4">
-            {footerLinks.legal.map((label, index) => (
-              <span key={label} className="flex items-center gap-4">
-                <Link href="#" className="hover:text-foreground">{label}</Link>
-                {index < footerLinks.legal.length - 1 && (
-                  <Separator orientation="vertical" className="h-4" />
-                )}
-              </span>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

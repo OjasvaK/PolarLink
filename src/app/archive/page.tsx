@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArchiveImage } from "@/components/archive/archive-image";
 import { PublicHeader } from "@/components/archive/public-header";
+import { SiteFooter } from "@/components/site-footer";
 import { SampleBadge } from "@/components/archive/sample-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -45,9 +46,9 @@ export default async function ArchivePage({ searchParams }: PageProps<"/archive"
   const heading = filters.type ? contentTypes[filters.type].plural : "Archive";
 
   return (
-    <div className="min-h-svh bg-background">
+    <div className="flex min-h-svh flex-col bg-background">
       <PublicHeader />
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main className="mx-auto w-full flex-1 max-w-6xl px-6 py-12">
         <h1 className="text-4xl font-extrabold tracking-tight">{heading}</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Published expedition reports, datasets, publications, media and
@@ -133,6 +134,7 @@ export default async function ArchivePage({ searchParams }: PageProps<"/archive"
           </ul>
         )}
       </main>
+      <SiteFooter />
     </div>
   );
 }

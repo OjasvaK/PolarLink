@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { ArchiveImage } from "@/components/archive/archive-image";
 import { CopyButton } from "@/components/archive/copy-button";
 import { PublicHeader } from "@/components/archive/public-header";
+import { SiteFooter } from "@/components/site-footer";
 import { SampleBadge } from "@/components/archive/sample-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -73,14 +74,15 @@ export default async function ArchiveItemPage({ params }: PageProps<"/archive/[t
   if (!loaded) notFound();
 
   return (
-    <div className="min-h-svh bg-background">
+    <div className="flex min-h-svh flex-col bg-background">
       <PublicHeader />
-      <main className="mx-auto max-w-4xl px-6 py-12">
+      <main className="mx-auto w-full flex-1 max-w-4xl px-6 py-12">
         <Link href={`/archive?type=${loaded.slug}`} className="text-sm text-muted-foreground hover:text-foreground">
           All {contentTypes[loaded.slug].plural.toLowerCase()}
         </Link>
         <Detail loaded={loaded} />
       </main>
+      <SiteFooter />
     </div>
   );
 }

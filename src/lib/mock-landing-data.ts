@@ -31,9 +31,3 @@ export const programSections = [
       "NCPOR's cryosphere research tracks glaciers and snow cover across the Indian Himalaya, the source of the subcontinent's major rivers.",
   },
 ] as const;
-
-
-export const footerLinks = {
-  legal: ["Terms of Service", "Privacy Policy"],
-  contact: "About this project",
-};
