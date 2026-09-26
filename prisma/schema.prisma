@@ -41,6 +41,12 @@ enum Program {
   HIMALAYAN
 }
 
+enum ReviewDecision {
+  APPROVED
+  REJECTED
+  CHANGES_REQUESTED
+}
+
 enum MediaType {
   PHOTO
   VIDEO
@@ -86,6 +92,7 @@ model User {
   generatedContent      GeneratedContent[] @relation("GeneratedByUser")
   publishedContent      GeneratedContent[] @relation("PublishedByUser")
   auditLogs             AuditLog[]
+  reviews               Review[]
 }
 
 model Account {
@@ -268,6 +275,23 @@ model AuditLog {
   timestamp  DateTime @default(now())
 
   actor User @relation(fields: [actorId], references: [id])
+
+  @@index([targetType, targetId])
+}
+
+// One row per editorial decision on a submission (spec section 8.5), across
+// all content types. The latest row for a target explains its current status
+// to the submitter (e.g. why changes were requested).
+model Review {
+  id         String         @id @default(cuid())
+  targetType String
+  targetId   String
+  decision   ReviewDecision
+  comment    String?        @db.Text
+  reviewerId String
+  createdAt  DateTime       @default(now())
+
+  reviewer User @relation(fields: [reviewerId], references: [id])
 
   @@index([targetType, targetId])
 }

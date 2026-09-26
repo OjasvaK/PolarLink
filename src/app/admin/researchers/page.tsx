@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { requireRole } from "@/lib/auth-guard";
@@ -30,16 +30,7 @@ export default async function ResearcherRequestsPage() {
 
   return (
     <div className="min-h-svh bg-background">
-      <header className="border-b">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-semibold tracking-tight">
-            PolarLink
-          </Link>
-          <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground">
-            Back to dashboard
-          </Link>
-        </div>
-      </header>
+      <AppHeader />
 
       <main className="mx-auto max-w-5xl px-6 py-12">
         <h1 className="text-3xl font-extrabold tracking-tight">Researcher requests</h1>

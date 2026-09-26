@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { signOut } from "@/auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { AppHeader } from "@/components/app-header";
 import type { Role } from "@/generated/prisma/enums";
 import { hasRole, requireUser } from "@/lib/auth-guard";
 import { prisma } from "@/lib/db";
@@ -30,11 +28,13 @@ const tools: { title: string; description: string; minimum: Role; href?: string 
     title: "My Submissions",
     description: "Submit expedition reports, dataset metadata, and media, and track their review status.",
     minimum: "RESEARCHER",
+    href: "/submissions",
   },
   {
     title: "Review Queue",
     description: "Approve, reject, or request changes on pending submissions.",
     minimum: "EDITOR",
+    href: "/review",
   },
   {
     title: "Content Generator",
@@ -75,26 +75,7 @@ export default async function DashboardPage({ searchParams }: PageProps<"/dashbo
 
   return (
     <div className="min-h-svh bg-background">
-      <header className="border-b">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-semibold tracking-tight">
-            PolarLink
-          </Link>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/" });
-              }}
-            >
-              <Button type="submit" variant="outline" size="sm">
-                Sign out
-              </Button>
-            </form>
-          </div>
-        </div>
-      </header>
+      <AppHeader />
 
       <main className="mx-auto max-w-5xl px-6 py-12">
         {denied && (
