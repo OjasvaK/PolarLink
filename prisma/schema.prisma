@@ -1,0 +1,269 @@
+// Prisma 7: connection URLs live in prisma7.config.ts (CLI) and in the driver
+// adapter passed to `new PrismaClient({ adapter })` (runtime) — not here.
+// See src/lib/db.ts for the runtime client and prisma7.config.ts for the CLI.
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// Roles & status enums (spec §4)
+// ---------------------------------------------------------------------------
+
+enum Role {
+  PUBLIC
+  RESEARCHER
+  EDITOR
+  ADMIN
+}
+
+enum ResearcherStatus {
+  NONE
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ContentStatus {
+  DRAFT
+  PENDING
+  PUBLISHED
+  REJECTED
+}
+
+enum Program {
+  ANTARCTIC
+  ARCTIC
+  HIMALAYAN
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+}
+
+enum GeneratedContentKind {
+  WEBSITE_BLURB
+  SOCIAL_CAPTION
+}
+
+enum GenerationMethod {
+  RULE_BASED
+  AI_ASSISTED
+}
+
+// ---------------------------------------------------------------------------
+// Auth.js (NextAuth v5) standard tables + our role/profile fields (spec §5)
+// ---------------------------------------------------------------------------
+
+model User {
+  id                String            @id @default(cuid())
+  name              String?
+  email             String?           @unique
+  emailVerified     DateTime?
+  image             String?
+  role              Role              @default(PUBLIC)
+  affiliation       String?
+  researcherStatus  ResearcherStatus  @default(NONE)
+  createdAt         DateTime          @default(now())
+
+  accounts      Account[]
+  sessions      Session[]
+
+  expeditions           Expedition[]
+  datasets              Dataset[]
+  publications          Publication[]
+  mediaAssets           MediaAsset[]
+  institutionalActivity InstitutionalActivity[]
+  generatedContent      GeneratedContent[] @relation("GeneratedByUser")
+  publishedContent      GeneratedContent[] @relation("PublishedByUser")
+  auditLogs             AuditLog[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Archive content (spec §7)
+// ---------------------------------------------------------------------------
+
+model Expedition {
+  id             String        @id @default(cuid())
+  name           String
+  program        Program
+  station        String
+  startDate      DateTime
+  endDate        DateTime?
+  summary        String        @db.Text
+  reportFileUrl  String?
+  status         ContentStatus @default(DRAFT)
+  submittedById  String
+  publishedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  submittedBy  User          @relation(fields: [submittedById], references: [id])
+  datasets     Dataset[]
+  publications Publication[]
+  mediaAssets  MediaAsset[]
+
+  @@index([status])
+  @@index([program])
+}
+
+model Dataset {
+  id                 String        @id @default(cuid())
+  title              String
+  description        String        @db.Text
+  tags               String[]
+  collectionDate     DateTime?
+  format             String
+  fileUrl            String?
+  externalUrl        String?
+  license            String?
+  linkedExpeditionId String?
+  status             ContentStatus @default(DRAFT)
+  submittedById      String
+  publishedAt        DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  linkedExpedition Expedition? @relation(fields: [linkedExpeditionId], references: [id])
+  submittedBy      User        @relation(fields: [submittedById], references: [id])
+
+  @@index([status])
+}
+
+model Publication {
+  id                 String        @id @default(cuid())
+  title              String
+  authors            String[]
+  year               Int
+  abstract           String        @db.Text
+  doiOrUrl           String?
+  linkedExpeditionId String?
+  status             ContentStatus @default(DRAFT)
+  submittedById      String
+  publishedAt        DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  linkedExpedition Expedition? @relation(fields: [linkedExpeditionId], references: [id])
+  submittedBy      User        @relation(fields: [submittedById], references: [id])
+
+  @@index([status])
+}
+
+model MediaAsset {
+  id                 String        @id @default(cuid())
+  type               MediaType
+  url                String
+  caption            String?
+  altText            String
+  tags               String[]
+  linkedExpeditionId String?
+  uploadedById       String
+  status             ContentStatus @default(DRAFT)
+  publishedAt        DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  linkedExpedition Expedition? @relation(fields: [linkedExpeditionId], references: [id])
+  uploadedBy       User        @relation(fields: [uploadedById], references: [id])
+
+  @@index([status])
+  @@index([type])
+}
+
+model InstitutionalActivity {
+  id            String        @id @default(cuid())
+  title         String
+  date          DateTime
+  description   String        @db.Text
+  coverImageUrl String?
+  status        ContentStatus @default(DRAFT)
+  submittedById String
+  publishedAt   DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  submittedBy User @relation(fields: [submittedById], references: [id])
+
+  @@index([status])
+}
+
+// ---------------------------------------------------------------------------
+// Content Generator (spec §8.5, §8.8) + audit log (spec §8.6)
+// ---------------------------------------------------------------------------
+
+model GeneratedContent {
+  id            String               @id @default(cuid())
+  sourceType    String
+  sourceId      String
+  kind          GeneratedContentKind
+  method        GenerationMethod     @default(RULE_BASED)
+  draftText     String               @db.Text
+  editedText    String?              @db.Text
+  shareImageUrl String?
+  status        ContentStatus        @default(DRAFT)
+  generatedById String
+  publishedById String?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  generatedBy User  @relation("GeneratedByUser", fields: [generatedById], references: [id])
+  publishedBy User? @relation("PublishedByUser", fields: [publishedById], references: [id])
+
+  @@index([sourceType, sourceId])
+  @@index([status])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String
+  action     String
+  targetType String
+  targetId   String
+  timestamp  DateTime @default(now())
+
+  actor User @relation(fields: [actorId], references: [id])
+
+  @@index([targetType, targetId])
+}
