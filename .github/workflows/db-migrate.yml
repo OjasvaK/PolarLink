@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
-      - run: npx prisma migrate dev --name init
+      - run: npx prisma migrate status
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_URL: ${{ secrets.DIRECT_URL }}
