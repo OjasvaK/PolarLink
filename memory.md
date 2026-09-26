@@ -15,18 +15,34 @@ This file tracks what's been done and what's next. Update the two lists below as
 - [x] Prisma pinned to stable `7.10.0` (not the `8.0.0-rc.*` Platform CLI `npm i prisma` grabs by default). Full schema written at `prisma/schema.prisma` per spec §7 (all models/enums, Auth.js tables included). `prisma7.config.ts` configured to use `DIRECT_URL` for CLI ops. `src/lib/db.ts` created with the required `@prisma/adapter-pg` driver adapter reading `DATABASE_URL`. `npx prisma generate` succeeds; `npm run build` and `npx tsc --noEmit` both pass clean. See spec §14a for why all of this looks different from classic Prisma docs.
 - [x] `.env.example` written per spec §11 (plus `ANTHROPIC_API_KEY` for the optional Content Generator path).
 
+## Decisions made this session (2026-09-26, continued) — already reflected in the spec
+
+- **Watermelon UI is not used as installable blocks.** Its real catalog (checked via `npx shadcn search`/`view`) is Vite/React-Router-oriented with fake testimonials, AI-agent widgets, and purple/pink gradients — several of which the §9 blocklist bans outright. It's used only as layout/structure inspiration for the hand-rebuilt mockup-1 direction. Skiper UI checked out fine and is used directly. See spec §14a.
+
+## Completed (continued)
+
+- [x] Build plan step 2 (mockup gate): three landing-page direction mockups built and screenshotted in light + dark mode at `/preview/mockup-1`, `/preview/mockup-2`, `/preview/mockup-3` (also `/preview` as an index). Awaiting the user's pick before any further page gets built — do not proceed past this gate on an assumed direction.
+  - Mockup 1: hand-rebuilt, Watermelon-inspired layout (calm/structured), CSS-driven route diagram.
+  - Mockup 2: Skiper UI's `ProgressiveBlur` (skiper41, installed via shadcn CLI) plus a hand-rolled scroll-reveal (`IntersectionObserver`), bolder hero treatment. Skiper UI free-tier attribution note added to the footer per its license.
+  - Mockup 3: anime.js hand-built — hero entrance stagger and the station route diagram are both driven by anime.js (`animate`/`stagger`, v4 API), no third-party UI kit.
+  - Shared: `src/lib/mock-landing-data.ts` (same placeholder content across all three, per the spec's "same content, different visual direction"), `src/components/theme-toggle.tsx`, `next-themes` wired into root layout.
+  - Found and fixed a real scaffold bug while building these: `globals.css` had `--font-sans: var(--font-sans)` (circular/invalid), which silently fell back headings and card titles to the browser's default serif font. Fixed to `--font-sans: var(--font-geist-sans)`. Worth remembering — this kind of bug is invisible in the editor and only shows up in a rendered screenshot, so screenshot/visually-check new layouts rather than trusting the code alone.
+  - Added a light institutional accent color (polar blue, `--primary`/`--ring`/`--accent` in `globals.css`) instead of shadcn's default grayscale — applies to all three mockups equally, not a "direction" variable.
+  - `scripts/screenshot-mockups.mjs` (Playwright, not the test runner) captures all six screenshots on demand — rerun it after any change to the mockups.
+
 ## Currently blocked on
 
+- **Waiting on the user to pick a landing-page direction** (or ask for a merge) from the three mockups above before any further page is built. This is a hard gate per spec §12 step 2 — do not guess.
 - **No real Supabase project yet.** Can't run the first migration (`npx prisma migrate dev`) or exercise the schema against a live database without a `DATABASE_URL` (pooled) and `DIRECT_URL` (direct) from an actual Supabase project — creating one is a cloud-account action outside this session's ability to do unattended. Next concrete action: user creates a Supabase project (or says to use another Postgres for local dev instead) and supplies the two connection strings into `.env`.
 - OAuth app registrations (Google Cloud Console, GitHub Developer Settings, ORCID sandbox) — also need the user's own accounts/consoles, per spec §11.
 
 ## Next steps (in order — per spec §12 build plan)
 
 1. ~~Initialize git repo; scaffold Next.js (App Router) + TypeScript + Tailwind + shadcn/ui.~~ Done.
-2. Run the first migration against real Supabase Postgres once credentials exist (schema itself is already written — see Completed above).
-3. Register OAuth apps (Google, GitHub, ORCID sandbox) and populate `.env` per §11.
-4. **GATE — do not skip:** produce 3 distinct static landing-page mockups (different visual direction each) as preview routes, screenshot each in light + dark mode via `playwright-cli`, and stop for the user to pick a direction before any further page is built. Nothing visual gets decided unilaterally past this point.
-5. Wire Auth.js — Google + GitHub first, ORCID once its sandbox client is approved — with role/researcherStatus in the session callback and **`proxy.ts`** (Next.js 16 renamed middleware to Proxy — see spec §14a) enforcing §4 server-side.
+2. ~~GATE: produce 3 distinct landing-page mockups, screenshot in light+dark, stop for user pick.~~ Done — see Completed above. **Waiting on the user's pick now.**
+3. Run the first migration against real Supabase Postgres once credentials exist (schema itself is already written — see Completed above).
+4. Register OAuth apps (Google, GitHub, ORCID sandbox) and populate `.env` per §11.
+5. Once a direction is picked: rebuild it as the real `/` landing page (not a `/preview/*` route) in the locked design language, then wire Auth.js — Google + GitHub first, ORCID once its sandbox client is approved — with role/researcherStatus in the session callback and **`proxy.ts`** (Next.js 16 renamed middleware to Proxy — see spec §14a) enforcing §4 server-side.
 6. Build core CRUD + review workflow for Expedition / Dataset / Publication / MediaAsset / InstitutionalActivity (draft → pending → published/rejected, role-gated).
 7. Build public archive & search: browse/filter, detail pages, media gallery, interactive map, timeline — in the locked design language from step 4.
 8. Build the Content Generator tool (§8.5) — the brief's differentiator, editor-only. Order within this step: rule-based baseline working end to end → OG share-image route → optional AI-assisted draft path (Claude API) last, only if time remains.
