@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { CinematicHero } from "@/components/landing/cinematic-hero";
 import { ProgramSection } from "@/components/landing/program-section";
 import { footerLinks, programSections } from "@/lib/mock-landing-data";
-import { archiveCounts, latestPublished } from "@/lib/archive";
+import { archiveCounts, latestPublished, publishedBlurbs } from "@/lib/archive";
 import { StationMap } from "@/components/archive/station-map";
 import {
   AntarcticGallery,
@@ -32,6 +32,16 @@ function excerpt(text: string, length = 160) {
 
 export default async function Home() {
   const [counts, latest] = await Promise.all([archiveCounts(), latestPublished()]);
+  const blurbs = await publishedBlurbs(
+    [
+      latest.expedition && { type: "expedition", id: latest.expedition.id },
+      latest.dataset && { type: "dataset", id: latest.dataset.id },
+      latest.media && { type: "media", id: latest.media.id },
+    ].filter((source) => !!source)
+  );
+  // An editor-published blurb, when there is one, replaces the raw excerpt.
+  const summaryFor = (type: string, id: string, fallback: string) =>
+    excerpt(blurbs.get(`${type}:${id}`) ?? fallback);
   const stats = [
     { label: "Expeditions archived", value: counts.expeditions },
     { label: "Datasets indexed", value: counts.datasets },
@@ -43,19 +53,19 @@ export default async function Home() {
       kind: "Expedition",
       href: `/archive/expedition/${latest.expedition.id}`,
       title: latest.expedition.name,
-      summary: excerpt(latest.expedition.summary),
+      summary: summaryFor("expedition", latest.expedition.id, latest.expedition.summary),
     },
     latest.dataset && {
       kind: "Dataset",
       href: `/archive/dataset/${latest.dataset.id}`,
       title: latest.dataset.title,
-      summary: excerpt(latest.dataset.description),
+      summary: summaryFor("dataset", latest.dataset.id, latest.dataset.description),
     },
     latest.media && {
       kind: "Media",
       href: `/archive/media/${latest.media.id}`,
       title: latest.media.caption || latest.media.altText,
-      summary: excerpt(latest.media.altText),
+      summary: summaryFor("media", latest.media.id, latest.media.altText),
     },
   ].filter((item) => !!item);
 

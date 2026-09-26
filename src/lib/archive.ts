@@ -233,3 +233,23 @@ export async function latestPublished() {
   ]);
   return { expedition, dataset, media };
 }
+
+// Published Content Generator blurbs, keyed by "type:id", for surfacing on
+// the landing page's featured strip (spec section 8.5).
+export async function publishedBlurbs(sources: { type: string; id: string }[]) {
+  if (sources.length === 0) return new Map<string, string>();
+  const rows = await prisma.generatedContent.findMany({
+    where: {
+      status: "PUBLISHED",
+      kind: "WEBSITE_BLURB",
+      OR: sources.map((s) => ({ sourceType: s.type, sourceId: s.id })),
+    },
+    orderBy: { updatedAt: "desc" },
+  });
+  const blurbs = new Map<string, string>();
+  for (const row of rows) {
+    const key = `${row.sourceType}:${row.sourceId}`;
+    if (!blurbs.has(key)) blurbs.set(key, row.editedText ?? row.draftText);
+  }
+  return blurbs;
+}

@@ -40,6 +40,7 @@ const tools: { title: string; description: string; minimum: Role; href?: string 
     title: "Content Generator",
     description: "Draft website blurbs and social captions from archive entries.",
     minimum: "EDITOR",
+    href: "/generator",
   },
   {
     title: "Researcher requests",

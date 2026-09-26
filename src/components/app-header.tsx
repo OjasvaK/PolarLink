@@ -9,6 +9,7 @@ const nav: { href: string; label: string; minimum: Role }[] = [
   { href: "/dashboard", label: "Dashboard", minimum: "PUBLIC" },
   { href: "/submissions", label: "My Submissions", minimum: "RESEARCHER" },
   { href: "/review", label: "Review Queue", minimum: "EDITOR" },
+  { href: "/generator", label: "Content Generator", minimum: "EDITOR" },
   { href: "/admin/researchers", label: "Researcher requests", minimum: "ADMIN" },
 ];
 
