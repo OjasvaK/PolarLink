@@ -64,5 +64,7 @@ export async function reviewSubmission(
 
   revalidatePath("/review");
   revalidatePath("/submissions");
+  // Landing stats and "Recently published" are statically regenerated.
+  if (decision === "APPROVED") revalidatePath("/");
   redirect(`/review?done=${outcome.action}`);
 }

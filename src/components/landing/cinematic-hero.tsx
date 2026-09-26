@@ -67,7 +67,9 @@ export function CinematicHero() {
           {heroCopy.subheadline}
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
-          <Button size="lg">Explore the Archive</Button>
+          <Button size="lg" asChild>
+            <Link href="/archive">Explore the Archive</Link>
+          </Button>
           <Button
             size="lg"
             variant="outline"

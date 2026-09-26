@@ -8,10 +8,10 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <span className="text-lg font-semibold tracking-tight text-white">PolarLink</span>
         <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
-          <Link href="#" className="hover:text-white">Archive</Link>
-          <Link href="#" className="hover:text-white">Datasets</Link>
-          <Link href="#" className="hover:text-white">Publications</Link>
-          <Link href="#" className="hover:text-white">About</Link>
+          <Link href="/archive" className="hover:text-white">Archive</Link>
+          <Link href="/archive?type=dataset" className="hover:text-white">Datasets</Link>
+          <Link href="/archive?type=publication" className="hover:text-white">Publications</Link>
+          <Link href="/archive?type=media" className="hover:text-white">Media</Link>
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />

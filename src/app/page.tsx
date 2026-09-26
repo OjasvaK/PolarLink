@@ -5,7 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import { SiteHeader } from "@/components/landing/site-header";
 import { CinematicHero } from "@/components/landing/cinematic-hero";
 import { ProgramSection } from "@/components/landing/program-section";
-import { stats, featured, footerLinks, programSections } from "@/lib/mock-landing-data";
+import { footerLinks, programSections } from "@/lib/mock-landing-data";
+import { archiveCounts, latestPublished } from "@/lib/archive";
 import {
   AntarcticGallery,
   ArcticGallery,
@@ -18,7 +19,45 @@ const galleries = {
   himalayan: <HimalayanGallery />,
 };
 
-export default function Home() {
+// Stats and "Recently published" come from the database (spec section 8.1).
+// Regenerated at most every 5 minutes, and immediately when an editor
+// publishes something (see src/app/review/actions.ts).
+export const revalidate = 300;
+
+function excerpt(text: string, length = 160) {
+  const clean = text.replace(/\s+/g, " ").trim();
+  return clean.length > length ? `${clean.slice(0, length).replace(/\s+\S*$/, "")}...` : clean;
+}
+
+export default async function Home() {
+  const [counts, latest] = await Promise.all([archiveCounts(), latestPublished()]);
+  const stats = [
+    { label: "Expeditions archived", value: counts.expeditions },
+    { label: "Datasets indexed", value: counts.datasets },
+    { label: "Publications catalogued", value: counts.publications },
+    { label: "Media items", value: counts.media },
+  ];
+  const featured = [
+    latest.expedition && {
+      kind: "Expedition",
+      href: `/archive/expedition/${latest.expedition.id}`,
+      title: latest.expedition.name,
+      summary: excerpt(latest.expedition.summary),
+    },
+    latest.dataset && {
+      kind: "Dataset",
+      href: `/archive/dataset/${latest.dataset.id}`,
+      title: latest.dataset.title,
+      summary: excerpt(latest.dataset.description),
+    },
+    latest.media && {
+      kind: "Media",
+      href: `/archive/media/${latest.media.id}`,
+      title: latest.media.caption || latest.media.altText,
+      summary: excerpt(latest.media.altText),
+    },
+  ].filter((item) => !!item);
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -49,22 +88,33 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-xl font-semibold">Recently published</h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-3">
-            {featured.map((item) => (
-              <Card key={item.title}>
-                <CardHeader>
-                  <Badge variant="outline" className="w-fit">{item.kind}</Badge>
-                  <CardTitle className="text-base">{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{item.summary}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        {featured.length > 0 && (
+          <section className="mx-auto max-w-6xl px-6 py-16">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 className="text-xl font-semibold">Recently published</h2>
+              <Link href="/archive" className="text-sm text-muted-foreground hover:text-foreground">
+                Browse the archive
+              </Link>
+            </div>
+            <div className="mt-6 grid gap-6 sm:grid-cols-3">
+              {featured.map((item) => (
+                <Card key={item.href} className="relative transition-colors hover:bg-muted/50">
+                  <CardHeader>
+                    <Badge variant="outline" className="w-fit">{item.kind}</Badge>
+                    <CardTitle className="text-base">
+                      <Link href={item.href} className="after:absolute after:inset-0">
+                        {item.title}
+                      </Link>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{item.summary}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
       <footer className="border-t">
