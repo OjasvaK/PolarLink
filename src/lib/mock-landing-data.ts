@@ -40,6 +40,33 @@ export const stations = [
   },
 ] as const;
 
+export const programSections = [
+  {
+    key: "antarctic",
+    eyebrow: "Since 1981",
+    title: "The Antarctic Program",
+    description:
+      "Maitri and Bharati stations anchor decades of Indian research into glaciology, atmospheric science, and the Southern Ocean.",
+    overlayFrom: "rgba(10, 24, 44, 0.55)",
+  },
+  {
+    key: "arctic",
+    eyebrow: "Since 2008",
+    title: "The Arctic Program",
+    description:
+      "Himadri, India's research station at Ny-Alesund, Svalbard, has hosted Indian researchers studying the Arctic climate system since 2008.",
+    overlayFrom: "rgba(10, 40, 36, 0.55)",
+  },
+  {
+    key: "himalayan",
+    eyebrow: "The third pole",
+    title: "The Himalayan Program",
+    description:
+      "NCPOR's cryosphere research tracks glaciers and snow cover across the Indian Himalaya, the source of the subcontinent's major rivers.",
+    overlayFrom: "rgba(40, 28, 10, 0.55)",
+  },
+] as const;
+
 export const featured = [
   {
     kind: "Expedition",

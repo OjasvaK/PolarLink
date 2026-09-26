@@ -54,14 +54,14 @@ export function CinematicHero() {
         className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20"
       />
 
-      <div className="relative mx-auto max-w-3xl px-6 py-24 text-center text-white">
+      <div className="relative mx-auto max-w-4xl px-6 py-24 text-center text-white">
         <Badge variant="secondary" className="mb-6 bg-white/10 text-white backdrop-blur">
           {heroCopy.eyebrow}
         </Badge>
-        <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-6xl">
+        <h1 className="text-balance text-5xl font-extrabold tracking-tight sm:text-7xl">
           {heroCopy.headline}
         </h1>
-        <p className="mt-5 text-pretty text-lg text-white/80">
+        <p className="mx-auto mt-5 max-w-2xl text-pretty text-xl text-white/80">
           {heroCopy.subheadline}
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">

@@ -4,8 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { stats, featured, footerLinks } from "@/lib/mock-landing-data";
+import { stats, featured, footerLinks, programSections } from "@/lib/mock-landing-data";
+import { programSlideshows } from "@/lib/image-credits";
 import { CinematicHero } from "./cinematic-hero";
+import { ProgramSection } from "./program-section";
 
 export default function Mockup4() {
   return (
@@ -30,6 +32,17 @@ export default function Mockup4() {
 
       <main className="flex-1">
         <CinematicHero />
+
+        {programSections.map((program) => (
+          <ProgramSection
+            key={program.key}
+            eyebrow={program.eyebrow}
+            title={program.title}
+            description={program.description}
+            overlayFrom={program.overlayFrom}
+            images={programSlideshows[program.key as keyof typeof programSlideshows]}
+          />
+        ))}
 
         <section className="border-y bg-muted/40">
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-14 sm:grid-cols-4">
