@@ -14,6 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  // Absolute base for Open Graph image URLs; SITE_URL is set in production.
+  metadataBase: process.env.SITE_URL ? new URL(process.env.SITE_URL) : undefined,
   title: "PolarLink",
   description:
     "Archive and outreach portal for India’s polar science program.",

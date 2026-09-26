@@ -5,6 +5,12 @@ import type { NextConfig } from "next";
 const supabaseHost = process.env.SUPABASE_URL ? new URL(process.env.SUPABASE_URL).hostname : undefined;
 
 const nextConfig: NextConfig = {
+  // Share images read these at request time. On Vercel, functions only get
+  // files the build traced, and /public is served by the CDN rather than
+  // bundled, so include them explicitly.
+  outputFileTracingIncludes: {
+    "/archive/**": ["./public/images/**/*", "./assets/fonts/**/*"],
+  },
   images: {
     remotePatterns: supabaseHost
       ? [{ protocol: "https", hostname: supabaseHost, pathname: "/storage/v1/object/public/**" }]
