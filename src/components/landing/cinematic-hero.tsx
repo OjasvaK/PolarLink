@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ChevronDown } from "lucide-react";
 import { heroCopy } from "@/lib/mock-landing-data";
 import { imageCredits } from "@/lib/image-credits";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
@@ -35,7 +36,7 @@ export function CinematicHero() {
   }, [reducedMotion]);
 
   return (
-    <section className="relative flex min-h-[92vh] items-center justify-center overflow-hidden bg-black">
+    <section className="relative flex h-svh min-h-[36rem] items-center justify-center overflow-hidden bg-black">
       <div ref={imageRef} className="absolute inset-0 overflow-hidden">
         <div className={`absolute inset-0 ${reducedMotion ? "" : "hero-kenburns"}`}>
           <Image
@@ -77,6 +78,15 @@ export function CinematicHero() {
       </div>
 
       <a
+        href="#programs"
+        aria-label="Scroll to the research programs"
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 sm:flex flex-col items-center gap-1 text-xs font-medium uppercase tracking-[0.2em] text-white/60 hover:text-white"
+      >
+        Scroll
+        <ChevronDown className={`size-5 ${reducedMotion ? "" : "hero-scroll-cue"}`} aria-hidden />
+      </a>
+
+      <a
         href={credit.sourceUrl}
         target="_blank"
         rel="noreferrer"
@@ -92,6 +102,13 @@ export function CinematicHero() {
         }
         .hero-kenburns {
           animation: hero-kenburns 20s ease-in-out infinite alternate;
+        }
+        @keyframes hero-scroll-cue {
+          0%, 100% { transform: translateY(0); opacity: 0.6; }
+          50% { transform: translateY(6px); opacity: 1; }
+        }
+        .hero-scroll-cue {
+          animation: hero-scroll-cue 2s ease-in-out infinite;
         }
       `}</style>
     </section>

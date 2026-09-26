@@ -70,15 +70,46 @@ export const imageCredits = {
     license: "CC BY-SA 4.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Panorama_of_Himalayas_from_Ranikhet.jpg",
   },
+  dakshinGangotri: {
+    file: "/images/antarctic/dakshin-gangotri.jpg",
+    title: "Dakshin Gangotri, India's first Antarctic station (1984)",
+    credit: "Col. Pavan Nair (retd.)",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Dakshin_Gangotri_station.jpg",
+  },
+  adeliePenguins: {
+    file: "/images/antarctic/adelie-penguins-iceberg.jpg",
+    title: "Adélie penguins on an iceberg, Ross Sea",
+    credit: "Brocken Inaglory",
+    license: "CC BY-SA 3.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Adelie_penguins_at_iceberg.jpg",
+  },
+  nyAlesundTown: {
+    file: "/images/arctic/ny-alesund-town.jpg",
+    title: "Ny-Alesund research village, Svalbard",
+    credit: "Harvey Barrison",
+    license: "CC BY-SA 2.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Ny-%C3%85lesund_2013_06_07_3657_(10178803704).jpg",
+  },
+  raudfjordbreen: {
+    file: "/images/arctic/raudfjordbreen-glacier.jpg",
+    title: "Raudfjordbreen glacier front, Svalbard",
+    credit: "Andreas Weith",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Raudfjordbreen_glacier_front,_Svalbard.jpg",
+  },
+  kongsfjorden: {
+    file: "/images/arctic/kongsfjorden.jpg",
+    title: "Kongsfjorden from Blomstrandhalvoya, Svalbard",
+    credit: "Wikimedia Commons user Sphinx",
+    license: "Public domain",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Kongsfjorden_from_Blomstrandhalvoja.jpg",
+  },
+  pindariGlacier: {
+    file: "/images/himalayan/pindari-glacier.jpg",
+    title: "Pindari Glacier, Uttarakhand",
+    credit: "Yann",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Pindari_glacier_2,_Uttarakhand,_India.jpg",
+  },
 } as const satisfies Record<string, ImageCredit>;
-
-export const programSlideshows = {
-  antarctic: [
-    imageCredits.bharatiStation,
-    imageCredits.maitriAerial,
-    imageCredits.byrdGlacier,
-    imageCredits.issAuroraAustralis,
-  ],
-  arctic: [imageCredits.nyAlesundAurora, imageCredits.polarBearSvalbard],
-  himalayan: [imageCredits.gaumukhGangotri, imageCredits.himalayaRanikhet],
-} satisfies Record<string, ImageCredit[]>;

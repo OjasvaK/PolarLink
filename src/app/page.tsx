@@ -6,7 +6,17 @@ import { SiteHeader } from "@/components/landing/site-header";
 import { CinematicHero } from "@/components/landing/cinematic-hero";
 import { ProgramSection } from "@/components/landing/program-section";
 import { stats, featured, footerLinks, programSections } from "@/lib/mock-landing-data";
-import { programSlideshows } from "@/lib/image-credits";
+import {
+  AntarcticGallery,
+  ArcticGallery,
+  HimalayanGallery,
+} from "@/components/landing/program-galleries";
+
+const galleries = {
+  antarctic: <AntarcticGallery />,
+  arctic: <ArcticGallery />,
+  himalayan: <HimalayanGallery />,
+};
 
 export default function Home() {
   return (
@@ -16,15 +26,16 @@ export default function Home() {
       <main className="flex-1">
         <CinematicHero />
 
+        <div id="programs" />
         {programSections.map((program) => (
           <ProgramSection
             key={program.key}
             eyebrow={program.eyebrow}
             title={program.title}
             description={program.description}
-            overlayFrom={program.overlayFrom}
-            images={programSlideshows[program.key as keyof typeof programSlideshows]}
-          />
+          >
+            {galleries[program.key]}
+          </ProgramSection>
         ))}
 
         <section className="border-y bg-muted/40">
