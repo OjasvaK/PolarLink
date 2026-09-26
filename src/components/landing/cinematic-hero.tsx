@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown } from "lucide-react";
@@ -71,8 +72,9 @@ export function CinematicHero() {
             size="lg"
             variant="outline"
             className="border-white/40 bg-transparent text-white hover:bg-white/10"
+            asChild
           >
-            Researcher Sign In
+            <Link href="/signin">Researcher Sign In</Link>
           </Button>
         </div>
       </div>

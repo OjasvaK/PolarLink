@@ -19,8 +19,9 @@ export function SiteHeader() {
             variant="outline"
             size="sm"
             className="border-white/40 bg-transparent text-white hover:bg-white/10"
+            asChild
           >
-            Researcher Sign In
+            <Link href="/signin">Researcher Sign In</Link>
           </Button>
         </div>
       </div>

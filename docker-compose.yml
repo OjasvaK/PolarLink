@@ -1,0 +1,18 @@
+# Local development database. This machine's network can't reach Supabase's
+# Postgres ports (see memory.md), so local dev runs against this container
+# instead, configured through .env.local (which overrides .env for both
+# Next.js and prisma7.config.ts). Start it with: docker compose up -d
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: polarlink
+      POSTGRES_PASSWORD: polarlink
+      POSTGRES_DB: polarlink
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
