@@ -1,6 +1,6 @@
 # PolarLink — Progress & Task Memory
 
-Status as of 2026-09-26: build plan steps 1-3 done. Git repo initialized (and pushed to GitHub — see Reference below), Next.js scaffolded, Prisma schema written, landing page UI direction picked and built for real at `/`, and the first migration is applied to a real Supabase database. Blocked on OAuth credentials before the auth work can proceed — see "Currently blocked on" below.
+Status as of 2026-09-27: build plan steps 1-3 and 5 done (auth code complete and tested locally with seeded sessions; real OAuth sign-in untested until step 4's credentials exist). Earlier status, 2026-09-26: build plan steps 1-3 done. Git repo initialized (and pushed to GitHub — see Reference below), Next.js scaffolded, Prisma schema written, landing page UI direction picked and built for real at `/`, and the first migration is applied to a real Supabase database. Blocked on OAuth credentials before the auth work can proceed — see "Currently blocked on" below.
 
 ## Reference
 
@@ -28,6 +28,10 @@ This file tracks what's been done and what's next. Update the two lists below as
 - [x] **First migration applied to the real Supabase database** (`20260926170629_init`, all §7 models/enums). Took real troubleshooting to get there — see "Session tooling notes" below before touching the database again, especially the local-network and lockfile issues.
 - [x] `package-lock.json` regenerated from scratch — the old one was missing platform-specific optional dependency entries (`@emnapi/runtime`/`@emnapi/core`, WASM fallbacks for `sharp` and Tailwind's oxide engine), which made `npm ci` fail on Linux (GitHub Actions) even though `npm install` on Windows looked fine.
 
+- [x] **Auth (build plan step 5), 2026-09-27.** Auth.js v5 (`next-auth@5.0.0-beta.32`) + Prisma adapter, **database sessions** (role/researcherStatus read fresh from `User` each request). Env vars use v5 names (`AUTH_SECRET`, `AUTH_GOOGLE_ID`, ...); **never leave `AUTH_URL=` empty** (an empty string disables host trust and every auth route 500s with UntrustedHost). Providers only appear once their ID is set; ORCID is a generic OIDC provider (`AUTH_ORCID_ISSUER`, sandbox default). `src/proxy.ts` = optimistic cookie redirect only; `src/lib/auth-guard.ts` (`requireUser`/`requireRole`) is the real check, must be called in every protected page/action. `/signin`, `/dashboard` (role tools + Request Researcher Access form), `/admin/researchers` (approve/reject, writes AuditLog). Migration `20260927090000_researcher_request_fields` applied locally, **not yet to Supabase**.
+- [x] **Local dev database, 2026-09-27.** `docker-compose.yml` runs Postgres 17 on port 5433; `.env.local` (gitignored) points `DATABASE_URL`/`DIRECT_URL` at it, and `prisma7.config.ts` loads `.env.local` before `.env`, so `npx prisma migrate deploy` locally targets Docker. Needs Docker Desktop running. Local test users `devpublic`/`devadmin` with session tokens `dev-public-token`/`dev-admin-token` exist there for testing without OAuth (set cookie `authjs.session-token`).
+- **First admin:** there is no UI to create one (by design). After the first real sign-in, promote yourself with SQL: `UPDATE "User" SET role='ADMIN' WHERE email='...'` (Supabase SQL editor in prod, `docker compose exec db psql -U polarlink` locally).
+
 ## Currently blocked on
 
 - **OAuth app registrations** (Google Cloud Console, GitHub Developer Settings, ORCID sandbox) — need the user's own accounts/consoles, per spec §11.
@@ -38,7 +42,7 @@ This file tracks what's been done and what's next. Update the two lists below as
 2. ~~UI direction gate — pick and build a landing-page direction.~~ Done, see Completed above.
 3. ~~Run the first migration against real Supabase Postgres.~~ Done, see Completed above.
 4. Register OAuth apps (Google, GitHub, ORCID sandbox) and populate `.env` per §11.
-5. Wire Auth.js — Google + GitHub first, ORCID once its sandbox client is approved — with role/researcherStatus in the session callback and **`proxy.ts`** (Next.js 16 renamed middleware to Proxy — see spec §14a) enforcing §4 server-side.
+5. ~~Wire Auth.js~~ Done, see Completed above. Original: Wire Auth.js — Google + GitHub first, ORCID once its sandbox client is approved — with role/researcherStatus in the session callback and **`proxy.ts`** (Next.js 16 renamed middleware to Proxy — see spec §14a) enforcing §4 server-side.
 6. Build core CRUD + review workflow for Expedition / Dataset / Publication / MediaAsset / InstitutionalActivity (draft → pending → published/rejected, role-gated).
 7. Build public archive & search: browse/filter, detail pages, media gallery, interactive map, timeline — in the locked design language.
 8. Build the Content Generator tool (§8.5) — the brief's differentiator, editor-only. Order within this step: rule-based baseline working end to end → OG share-image route → optional AI-assisted draft path (Claude API) last, only if time remains.

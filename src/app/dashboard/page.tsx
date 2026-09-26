@@ -22,10 +22,10 @@ const roleLabels: Record<Role, string> = {
   ADMIN: "Admin",
 };
 
-// Tools each role unlocks (spec section 8.2). None of these are built yet
-// (build plan step 6 onward), so they're listed without links rather than
-// pointing at pages that don't exist.
-const tools: { title: string; description: string; minimum: Role }[] = [
+// Tools each role unlocks (spec section 8.2). Tools without an href aren't
+// built yet (build plan step 6 onward), so they're listed without links
+// rather than pointing at pages that don't exist.
+const tools: { title: string; description: string; minimum: Role; href?: string }[] = [
   {
     title: "My Submissions",
     description: "Submit expedition reports, dataset metadata, and media, and track their review status.",
@@ -42,8 +42,14 @@ const tools: { title: string; description: string; minimum: Role }[] = [
     minimum: "EDITOR",
   },
   {
+    title: "Researcher requests",
+    description: "Approve or reject pending requests for researcher access.",
+    minimum: "ADMIN",
+    href: "/admin/researchers",
+  },
+  {
     title: "Admin Console",
-    description: "Users, role approvals, audit log, and analytics.",
+    description: "Users, role assignment, audit log, and analytics.",
     minimum: "ADMIN",
   },
 ];
@@ -150,11 +156,19 @@ export default async function DashboardPage({ searchParams }: PageProps<"/dashbo
             <h2 className="text-lg font-semibold">Your tools</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {availableTools.map((tool) => (
-                <Card key={tool.title}>
+                <Card key={tool.title} className={tool.href ? "relative transition-colors hover:bg-muted/50" : undefined}>
                   <CardHeader>
                     <div className="flex items-center justify-between gap-3">
-                      <CardTitle className="text-base">{tool.title}</CardTitle>
-                      <Badge variant="outline">Not built yet</Badge>
+                      <CardTitle className="text-base">
+                        {tool.href ? (
+                          <Link href={tool.href} className="after:absolute after:inset-0">
+                            {tool.title}
+                          </Link>
+                        ) : (
+                          tool.title
+                        )}
+                      </CardTitle>
+                      {!tool.href && <Badge variant="outline">Not built yet</Badge>}
                     </div>
                     <CardDescription>{tool.description}</CardDescription>
                   </CardHeader>
