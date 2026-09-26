@@ -8,6 +8,7 @@ import { ProgramSection } from "@/components/landing/program-section";
 import { footerLinks, programSections } from "@/lib/mock-landing-data";
 import { archiveCounts, latestPublished, publishedBlurbs } from "@/lib/archive";
 import { StationMap } from "@/components/archive/station-map";
+import { SampleBadge } from "@/components/archive/sample-badge";
 import {
   AntarcticGallery,
   ArcticGallery,
@@ -52,18 +53,21 @@ export default async function Home() {
     latest.expedition && {
       kind: "Expedition",
       href: `/archive/expedition/${latest.expedition.id}`,
+      isSample: latest.expedition.isSample,
       title: latest.expedition.name,
       summary: summaryFor("expedition", latest.expedition.id, latest.expedition.summary),
     },
     latest.dataset && {
       kind: "Dataset",
       href: `/archive/dataset/${latest.dataset.id}`,
+      isSample: latest.dataset.isSample,
       title: latest.dataset.title,
       summary: summaryFor("dataset", latest.dataset.id, latest.dataset.description),
     },
     latest.media && {
       kind: "Media",
       href: `/archive/media/${latest.media.id}`,
+      isSample: latest.media.isSample,
       title: latest.media.caption || latest.media.altText,
       summary: summaryFor("media", latest.media.id, latest.media.altText),
     },
@@ -127,7 +131,10 @@ export default async function Home() {
               {featured.map((item) => (
                 <Card key={item.href} className="relative transition-colors hover:bg-muted/50">
                   <CardHeader>
-                    <Badge variant="outline" className="w-fit">{item.kind}</Badge>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="outline" className="w-fit">{item.kind}</Badge>
+                      {item.isSample && <SampleBadge />}
+                    </div>
                     <CardTitle className="text-base">
                       <Link href={item.href} className="after:absolute after:inset-0">
                         {item.title}

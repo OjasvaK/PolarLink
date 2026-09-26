@@ -35,6 +35,7 @@ export type ArchiveResult = {
   year: number | null;
   imageUrl: string | null;
   mediaType?: "PHOTO" | "VIDEO";
+  isSample: boolean;
 };
 
 const PER_TYPE_LIMIT = 60;
@@ -143,6 +144,7 @@ export async function searchArchive(filters: ArchiveFilters): Promise<ArchiveRes
     ...expeditions.map((e) => ({
       slug: "expedition" as const,
       id: e.id,
+      isSample: e.isSample,
       title: e.name,
       excerpt: excerpt(e.summary),
       program: e.program,
@@ -153,6 +155,7 @@ export async function searchArchive(filters: ArchiveFilters): Promise<ArchiveRes
     ...datasets.map((d) => ({
       slug: "dataset" as const,
       id: d.id,
+      isSample: d.isSample,
       title: d.title,
       excerpt: excerpt(d.description),
       program: d.linkedExpedition?.program ?? null,
@@ -163,6 +166,7 @@ export async function searchArchive(filters: ArchiveFilters): Promise<ArchiveRes
     ...publications.map((p) => ({
       slug: "publication" as const,
       id: p.id,
+      isSample: p.isSample,
       title: p.title,
       excerpt: excerpt(p.abstract),
       program: p.linkedExpedition?.program ?? null,
@@ -173,6 +177,7 @@ export async function searchArchive(filters: ArchiveFilters): Promise<ArchiveRes
     ...media.map((m) => ({
       slug: "media" as const,
       id: m.id,
+      isSample: m.isSample,
       title: m.caption || m.altText,
       excerpt: excerpt(m.altText, 140),
       program: m.linkedExpedition?.program ?? null,
@@ -184,6 +189,7 @@ export async function searchArchive(filters: ArchiveFilters): Promise<ArchiveRes
     ...activities.map((a) => ({
       slug: "activity" as const,
       id: a.id,
+      isSample: a.isSample,
       title: a.title,
       excerpt: excerpt(a.description),
       program: null,

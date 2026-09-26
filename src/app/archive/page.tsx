@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArchiveImage } from "@/components/archive/archive-image";
 import { PublicHeader } from "@/components/archive/public-header";
+import { SampleBadge } from "@/components/archive/sample-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -152,6 +153,7 @@ function ResultRow({ result }: { result: ArchiveResult }) {
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
           <Badge variant="outline">{contentTypes[result.slug].label}</Badge>
+          {result.isSample && <SampleBadge />}
           {meta.join(" · ")}
         </div>
         <h2 className="mt-2 text-lg font-semibold group-hover:underline">{result.title}</h2>
@@ -179,6 +181,7 @@ function MediaTile({ result }: { result: ArchiveResult }) {
         )}
       </div>
       <p className="mt-2 line-clamp-2 text-sm">{result.title}</p>
+      {result.isSample && <SampleBadge className="mt-1" />}
     </Link>
   );
 }

@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { ArchiveImage } from "@/components/archive/archive-image";
 import { CopyButton } from "@/components/archive/copy-button";
 import { PublicHeader } from "@/components/archive/public-header";
+import { SampleBadge } from "@/components/archive/sample-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { programLabel } from "@/lib/archive";
@@ -84,14 +85,21 @@ export default async function ArchiveItemPage({ params }: PageProps<"/archive/[t
   );
 }
 
-function Header({ slug, title, meta }: { slug: ContentSlug; title: string; meta: (string | null | undefined)[] }) {
+function Header({ slug, title, meta, isSample }: { slug: ContentSlug; title: string; meta: (string | null | undefined)[]; isSample: boolean }) {
   return (
     <>
       <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
         <Badge variant="outline">{contentTypes[slug].label}</Badge>
+        {isSample && <SampleBadge />}
         {meta.filter(Boolean).join(" · ")}
       </div>
       <h1 className="mt-3 text-balance text-4xl font-extrabold tracking-tight">{title}</h1>
+      {isSample && (
+        <p className="mt-3 max-w-prose text-sm text-muted-foreground">
+          This is an illustrative record created to demonstrate the archive. It is
+          not an official NCPOR record.
+        </p>
+      )}
     </>
   );
 }
@@ -139,7 +147,7 @@ function Detail({ loaded }: { loaded: Loaded }) {
       const isPdf = e.reportFileUrl?.toLowerCase().split("?")[0].endsWith(".pdf");
       return (
         <>
-          <Header slug="expedition" title={e.name} meta={[programLabel(e.program), e.station]} />
+          <Header slug="expedition" title={e.name} meta={[programLabel(e.program), e.station]} isSample={e.isSample} />
           <Facts
             rows={[
               ["Program", programLabel(e.program)],
@@ -220,7 +228,7 @@ function Detail({ loaded }: { loaded: Loaded }) {
       const d = loaded.item!;
       return (
         <>
-          <Header slug="dataset" title={d.title} meta={[programLabel(d.linkedExpedition?.program), d.format]} />
+          <Header slug="dataset" title={d.title} meta={[programLabel(d.linkedExpedition?.program), d.format]} isSample={d.isSample} />
           <Facts
             rows={[
               ["Format", d.format],
@@ -252,7 +260,7 @@ function Detail({ loaded }: { loaded: Loaded }) {
       const link = publicationLink(p.doiOrUrl);
       return (
         <>
-          <Header slug="publication" title={p.title} meta={[String(p.year), programLabel(p.linkedExpedition?.program)]} />
+          <Header slug="publication" title={p.title} meta={[String(p.year), programLabel(p.linkedExpedition?.program)]} isSample={p.isSample} />
           <p className="mt-4 text-muted-foreground">{p.authors.join(", ")}</p>
           <Facts
             rows={[
@@ -280,7 +288,7 @@ function Detail({ loaded }: { loaded: Loaded }) {
       const m = loaded.item!;
       return (
         <>
-          <Header slug="media" title={m.caption || m.altText} meta={[m.type === "PHOTO" ? "Photo" : "Video", programLabel(m.linkedExpedition?.program)]} />
+          <Header slug="media" title={m.caption || m.altText} meta={[m.type === "PHOTO" ? "Photo" : "Video", programLabel(m.linkedExpedition?.program)]} isSample={m.isSample} />
           <figure className="mt-8">
             {m.type === "PHOTO" ? (
               <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-muted">
@@ -313,7 +321,7 @@ function Detail({ loaded }: { loaded: Loaded }) {
       const a = loaded.item!;
       return (
         <>
-          <Header slug="activity" title={a.title} meta={[dateFormat.format(a.date)]} />
+          <Header slug="activity" title={a.title} meta={[dateFormat.format(a.date)]} isSample={a.isSample} />
           {a.coverImageUrl && (
             <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-lg bg-muted">
               <ArchiveImage src={a.coverImageUrl} alt="" sizes="(min-width: 896px) 848px, 100vw" priority />

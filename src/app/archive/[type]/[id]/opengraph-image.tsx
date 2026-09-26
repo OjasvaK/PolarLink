@@ -111,7 +111,11 @@ export default async function Image({ params }: { params: Promise<{ type: string
 
   // Only JPEG/PNG can be drawn here; anything else falls back to a
   // credited program photo.
-  let photo = card.photoUrl ? await remoteAsDataUri(card.photoUrl) : null;
+  let photo = !card.photoUrl
+    ? null
+    : /^\/images\/[\w/-]+\.jpg$/.test(card.photoUrl)
+      ? await localAsDataUri(card.photoUrl.slice(1)) // bundled photo (sample data)
+      : await remoteAsDataUri(card.photoUrl);
   let credit: string | null = null;
   if (!photo) {
     const fallback = fallbackPhoto[card.program ?? "NONE"];

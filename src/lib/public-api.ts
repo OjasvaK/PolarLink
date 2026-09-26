@@ -85,6 +85,8 @@ export async function listCollection(collection: PublicCollection, { page, pageS
     url: `${origin}/archive/${archiveSlug[collection]}/${id}`,
     shareImageUrl: `${origin}/archive/${archiveSlug[collection]}/${id}/opengraph-image`,
   });
+  // Seeded sample media lives under /public, so its URLs are site-relative.
+  const absolute = (url: string | null) => (url && url.startsWith("/") ? `${origin}${url}` : url);
   const linkedExpedition = (e: { id: string; name: string; status: string } | null) =>
     e && e.status === "PUBLISHED" ? { id: e.id, name: e.name } : null;
 
@@ -104,8 +106,9 @@ export async function listCollection(collection: PublicCollection, { page, pageS
           startDate: iso(e.startDate),
           endDate: iso(e.endDate),
           summary: e.summary,
-          reportUrl: e.reportFileUrl,
+          reportUrl: absolute(e.reportFileUrl),
           publishedAt: iso(e.publishedAt),
+          isSample: e.isSample,
           ...links(e.id),
         })),
       };
@@ -124,11 +127,12 @@ export async function listCollection(collection: PublicCollection, { page, pageS
           tags: d.tags,
           collectionDate: iso(d.collectionDate),
           format: d.format,
-          fileUrl: d.fileUrl,
+          fileUrl: absolute(d.fileUrl),
           externalUrl: d.externalUrl,
           license: d.license,
           expedition: linkedExpedition(d.linkedExpedition),
           publishedAt: iso(d.publishedAt),
+          isSample: d.isSample,
           ...links(d.id),
         })),
       };
@@ -149,6 +153,7 @@ export async function listCollection(collection: PublicCollection, { page, pageS
           doiOrUrl: p.doiOrUrl,
           expedition: linkedExpedition(p.linkedExpedition),
           publishedAt: iso(p.publishedAt),
+          isSample: p.isSample,
           ...links(p.id),
         })),
       };
@@ -163,12 +168,13 @@ export async function listCollection(collection: PublicCollection, { page, pageS
         items: rows.map((m) => ({
           id: m.id,
           type: m.type,
-          mediaUrl: m.url,
+          mediaUrl: absolute(m.url),
           caption: m.caption,
           altText: m.altText,
           tags: m.tags,
           expedition: linkedExpedition(m.linkedExpedition),
           publishedAt: iso(m.publishedAt),
+          isSample: m.isSample,
           ...links(m.id),
         })),
       };
@@ -185,8 +191,9 @@ export async function listCollection(collection: PublicCollection, { page, pageS
           title: a.title,
           date: iso(a.date),
           description: a.description,
-          coverImageUrl: a.coverImageUrl,
+          coverImageUrl: absolute(a.coverImageUrl),
           publishedAt: iso(a.publishedAt),
+          isSample: a.isSample,
           ...links(a.id),
         })),
       };
