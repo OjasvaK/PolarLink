@@ -44,7 +44,7 @@ export default async function GeneratorPage() {
         <h1 className="text-3xl font-extrabold tracking-tight">Content Generator</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Turn a published archive entry into a website blurb, a social caption
-          and a share image. Drafts are built only from the entry&apos;s stored
+          and a share image. Drafts are built only from the entry’s stored
           metadata and stay labelled as drafts until you publish them.
         </p>
 

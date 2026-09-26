@@ -1,8 +1,8 @@
 import type { Program } from "@/generated/prisma/enums";
 
 // Rule-based Content Generator (spec section 8.5, the required baseline).
-// Pure functions over an item's stored metadata: the same input always
-// produces the same draft, and nothing is invented beyond what's stored.
+// Pure functions over an item’s stored metadata: the same input always
+// produces the same draft, and nothing is invented beyond what’s stored.
 
 export type GeneratorSourceType = "expedition" | "dataset" | "media";
 
@@ -75,7 +75,7 @@ function days(start: Date, end: Date) {
 function fitSocial(body: string, hashtags: string[], url: string) {
   const tail = `\n\n${hashtags.join(" ")}\n${url}`;
   const budget = 280 - (tail.length - url.length + 23);
-  const trimmed = body.length > budget ? `${body.slice(0, budget - 3).replace(/\s+\S*$/, "")}...` : body;
+  const trimmed = body.length > budget ? `${body.slice(0, budget - 1).replace(/\s+\S*$/, "")}…` : body;
   return trimmed + tail;
 }
 
@@ -92,7 +92,7 @@ export function websiteBlurb(source: GeneratorSource) {
         source.counts.media && plural(source.counts.media, "media item"),
       ].filter(Boolean) as string[];
       return [
-        `${source.name} was part of India's ${program} research program, based at ${source.station}. ${when}`,
+        `${source.name} was part of India’s ${program} research program, based at ${source.station}. ${when}`,
         sentences(source.summary, 3),
         holdings.length
           ? `The PolarLink archive holds ${listPhrase(holdings)} from this expedition.`

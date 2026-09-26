@@ -79,11 +79,11 @@ export function UploadField({
           disabled={status.state === "uploading"}
           onClick={() => fileRef.current?.click()}
         >
-          {status.state === "uploading" ? "Uploading..." : "Upload file"}
+          {status.state === "uploading" ? "Uploading…" : "Upload File"}
         </Button>
       </div>
       <p aria-live="polite" className="text-sm empty:hidden">
-        {status.state === "uploading" && <span className="text-muted-foreground">Uploading {status.name}...</span>}
+        {status.state === "uploading" && <span className="text-muted-foreground">Uploading {status.name}…</span>}
         {status.state === "done" && <span className="text-muted-foreground">Uploaded {status.name}.</span>}
         {status.state === "error" && <span className="text-destructive">{status.message}</span>}
       </p>

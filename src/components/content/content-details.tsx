@@ -30,7 +30,7 @@ async function renderValue(field: FieldDef, value: unknown) {
   }
 }
 
-// Read-only view of a submission's fields, used by owners and reviewers.
+// Read-only view of a submission’s fields, used by owners and reviewers.
 export async function ContentDetails({ slug, item }: { slug: ContentSlug; item: ContentRow }) {
   const type = contentTypes[slug];
   const rows = await Promise.all(

@@ -9,7 +9,7 @@ import { contentTypes, isContentSlug } from "@/lib/content/types";
 import { saveSubmission } from "../../actions";
 
 export const metadata: Metadata = {
-  title: "New submission | PolarLink",
+  title: "New Submission | PolarLink",
 };
 
 export default async function NewSubmissionPage({ params }: PageProps<"/submissions/new/[type]">) {
@@ -29,7 +29,7 @@ export default async function NewSubmissionPage({ params }: PageProps<"/submissi
         <Link href="/submissions" className="text-sm text-muted-foreground hover:text-foreground">
           Back to My Submissions
         </Link>
-        <h1 className="mt-4 text-3xl font-extrabold tracking-tight">New {type.label.toLowerCase()}</h1>
+        <h1 className="mt-4 text-3xl font-extrabold tracking-tight">New {type.label}</h1>
         <div className="mt-8">
           <ContentForm slug={slug} action={saveSubmission.bind(null, slug, null)} expeditions={expeditions} />
         </div>

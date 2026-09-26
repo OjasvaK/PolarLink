@@ -161,7 +161,7 @@ function Detail({ loaded }: { loaded: Loaded }) {
           <Prose>{e.summary}</Prose>
 
           {e.reportFileUrl && (
-            <Section title="Expedition report">
+            <Section title="Expedition Report">
               {isPdf && (
                 <iframe
                   src={e.reportFileUrl}
@@ -171,7 +171,7 @@ function Detail({ loaded }: { loaded: Loaded }) {
               )}
               <Button asChild variant="outline" size="sm" className="mt-4">
                 <a href={e.reportFileUrl} target="_blank" rel="noreferrer">
-                  {isPdf ? "Open or download the report" : "Open the report"}
+                  {isPdf ? "Open or Download the Report" : "Open the Report"}
                 </a>
               </Button>
             </Section>
@@ -244,12 +244,12 @@ function Detail({ loaded }: { loaded: Loaded }) {
           <div className="mt-8 flex flex-wrap gap-3">
             {d.fileUrl && (
               <Button asChild size="sm">
-                <a href={d.fileUrl} target="_blank" rel="noreferrer">Download data file</a>
+                <a href={d.fileUrl} target="_blank" rel="noreferrer">Download Data File</a>
               </Button>
             )}
             {d.externalUrl && (
               <Button asChild variant="outline" size="sm">
-                <a href={d.externalUrl} target="_blank" rel="noreferrer">View in external repository</a>
+                <a href={d.externalUrl} target="_blank" rel="noreferrer">View in External Repository</a>
               </Button>
             )}
           </div>
@@ -274,11 +274,11 @@ function Detail({ loaded }: { loaded: Loaded }) {
           <Section title="Abstract">
             <div className="max-w-prose whitespace-pre-line text-pretty leading-relaxed">{p.abstract}</div>
           </Section>
-          <Section title="Cite this publication">
+          <Section title="Cite This Publication">
             <p className="rounded-lg border bg-muted/40 p-4 text-sm">{plainCitation(p)}</p>
             <pre className="mt-3 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-xs">{bibtex(p)}</pre>
             <div className="mt-3 flex gap-3">
-              <CopyButton text={plainCitation(p)} label="Copy citation" />
+              <CopyButton text={plainCitation(p)} label="Copy Citation" />
               <CopyButton text={bibtex(p)} label="Copy BibTeX" />
             </div>
           </Section>

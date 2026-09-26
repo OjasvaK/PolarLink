@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/about", label: "About this project" },
+  { href: "/about", label: "About This Project" },
   { href: "/terms", label: "Terms of Service" },
   { href: "/privacy", label: "Privacy Policy" },
-  { href: "/api/public/feed.xml", label: "RSS feed" },
+  { href: "/api/public/feed.xml", label: "RSS Feed" },
 ];
 
 export function SiteFooter() {

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import type { ReviewFormState } from "@/app/review/actions";
+import { useFocusFirstError } from "@/lib/use-focus-first-error";
 
 export function ReviewForm({
   action,
@@ -13,11 +14,12 @@ export function ReviewForm({
   action: (state: ReviewFormState, formData: FormData) => Promise<ReviewFormState>;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
+  const formRef = useFocusFirstError<HTMLFormElement>(state.error);
 
   return (
-    <form action={formAction} className="grid gap-4">
+    <form ref={formRef} action={formAction} className="grid gap-4">
       {state.error && (
-        <Alert variant="destructive">
+        <Alert variant="destructive" id="review-error">
           <AlertDescription>{state.error}</AlertDescription>
         </Alert>
       )}
@@ -25,14 +27,21 @@ export function ReviewForm({
         <Label htmlFor="comment">
           Comment <span className="font-normal text-muted-foreground">(required unless approving)</span>
         </Label>
-        <Textarea id="comment" name="comment" rows={4} placeholder="Shown to the submitter." />
+        <Textarea
+          id="comment"
+          name="comment"
+          rows={4}
+          placeholder="Shown to the submitter."
+          aria-invalid={!!state.error}
+          aria-describedby={state.error ? "review-error" : undefined}
+        />
       </div>
       <div className="flex flex-wrap gap-3">
         <Button type="submit" name="decision" value="APPROVED" disabled={pending}>
-          Approve and publish
+          Approve and Publish
         </Button>
         <Button type="submit" name="decision" value="CHANGES_REQUESTED" variant="outline" disabled={pending}>
-          Request changes
+          Request Changes
         </Button>
         <Button type="submit" name="decision" value="REJECTED" variant="destructive" disabled={pending}>
           Reject

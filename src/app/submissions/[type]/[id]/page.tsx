@@ -29,7 +29,7 @@ export default async function SubmissionPage({ params }: PageProps<"/submissions
 
   const user = await requireRole("RESEARCHER", `/submissions/${slug}/${id}`);
   const item = await getContent(slug, id);
-  // Someone else's submission is reported as missing rather than forbidden.
+  // Someone else’s submission is reported as missing rather than forbidden.
   if (!item || ownerOf(slug, item) !== user.id) notFound();
 
   const review = await latestReview(slug, id);
@@ -73,7 +73,7 @@ export default async function SubmissionPage({ params }: PageProps<"/submissions
               <input type="hidden" name="slug" value={slug} />
               <input type="hidden" name="id" value={id} />
               <Button type="submit" variant="ghost" size="sm" className="text-destructive">
-                Delete this draft
+                Delete This Draft
               </Button>
             </form>
           </>
@@ -88,7 +88,7 @@ export default async function SubmissionPage({ params }: PageProps<"/submissions
                 <input type="hidden" name="id" value={id} />
                 <p className="text-sm text-muted-foreground">Waiting for an editor to review this.</p>
                 <Button type="submit" variant="outline" size="sm">
-                  Withdraw to edit
+                  Withdraw to Edit
                 </Button>
               </form>
             )}

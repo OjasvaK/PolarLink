@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 const kinds = [
-  { kind: "WEBSITE_BLURB", heading: "Website blurb", limit: undefined },
-  { kind: "SOCIAL_CAPTION", heading: "Social caption", limit: 280 },
+  { kind: "WEBSITE_BLURB", heading: "Website Blurb", limit: undefined },
+  { kind: "SOCIAL_CAPTION", heading: "Social Caption", limit: 280 },
 ] as const;
 
 export default async function GeneratorSourcePage({ params }: PageProps<"/generator/[type]/[id]">) {
@@ -51,12 +51,12 @@ export default async function GeneratorSourcePage({ params }: PageProps<"/genera
           <input type="hidden" name="type" value={type} />
           <input type="hidden" name="id" value={id} />
           <Button type="submit" size="sm">
-            {rows.length ? "Regenerate drafts" : "Generate drafts"}
+            {rows.length ? "Regenerate Drafts" : "Generate Drafts"}
           </Button>
           <p className="text-sm text-muted-foreground">
             {rows.length
               ? "Regenerating rebuilds both drafts from the current metadata and discards unpublished edits."
-              : "Builds a website blurb and a social caption from this item's stored metadata."}
+              : "Builds a website blurb and a social caption from this item’s stored metadata."}
           </p>
         </form>
 
@@ -82,7 +82,7 @@ export default async function GeneratorSourcePage({ params }: PageProps<"/genera
         )}
 
         <section className="mt-12">
-          <h2 className="text-lg font-semibold">Share image</h2>
+          <h2 className="text-lg font-semibold">Share Image</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Used automatically when the archive link is shared, and downloadable for posts.
           </p>
@@ -96,7 +96,7 @@ export default async function GeneratorSourcePage({ params }: PageProps<"/genera
           />
           <Button asChild variant="outline" size="sm" className="mt-3">
             <a href={shareImage} download={`polarlink-${type}-${id}.png`}>
-              Download share image
+              Download Share Image
             </a>
           </Button>
         </section>

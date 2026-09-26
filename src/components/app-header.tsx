@@ -10,7 +10,7 @@ const nav: { href: string; label: string; minimum: Role }[] = [
   { href: "/submissions", label: "My Submissions", minimum: "RESEARCHER" },
   { href: "/review", label: "Review Queue", minimum: "EDITOR" },
   { href: "/generator", label: "Content Generator", minimum: "EDITOR" },
-  { href: "/admin/researchers", label: "Researcher requests", minimum: "ADMIN" },
+  { href: "/admin/researchers", label: "Researcher Requests", minimum: "ADMIN" },
 ];
 
 // Header for signed-in pages. Links are filtered by role for convenience
@@ -22,11 +22,11 @@ export async function AppHeader() {
   return (
     <header className="border-b">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 max-sm:w-full">
           <Link href="/" className="text-lg font-semibold tracking-tight">
             PolarLink
           </Link>
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted-foreground">
+          <nav className="-mx-6 flex w-[calc(100%+3rem)] items-center gap-x-5 overflow-x-auto px-6 pb-1 text-sm whitespace-nowrap text-muted-foreground sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 sm:whitespace-normal">
             {nav
               .filter((item) => hasRole(role, item.minimum))
               .map((item) => (
@@ -45,7 +45,7 @@ export async function AppHeader() {
             }}
           >
             <Button type="submit" variant="outline" size="sm">
-              Sign out
+              Sign Out
             </Button>
           </form>
         </div>

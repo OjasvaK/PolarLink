@@ -59,7 +59,7 @@ export async function updateGenerated(
   const editor = await requireRole("EDITOR", "/generator");
   const intent = formData.get("intent");
   const text = String(formData.get("text") ?? "").trim();
-  if (!text) return { error: "The text can't be empty." };
+  if (!text) return { error: "The text can’t be empty." };
   if (text.length > 5000) return { error: "Keep it under 5000 characters." };
 
   const row = await prisma.generatedContent.findUnique({ where: { id: contentId } });

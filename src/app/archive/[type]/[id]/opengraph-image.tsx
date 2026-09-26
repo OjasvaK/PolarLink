@@ -8,8 +8,8 @@ import { prisma } from "@/lib/db";
 import { imageCredits, type ImageCredit } from "@/lib/image-credits";
 
 // Templated Open Graph card for every archive entry (spec section 8.5): a
-// cover photo, the entry's title and its program/station. Social platforms
-// pick it up automatically from the archive page's metadata, and the
+// cover photo, the entry’s title and its program/station. Social platforms
+// pick it up automatically from the archive page’s metadata, and the
 // Content Generator offers it as a download.
 
 export const alt = "PolarLink archive entry";
@@ -18,7 +18,7 @@ export const contentType = "image/png";
 
 const published = { status: "PUBLISHED" as const };
 
-// Geist, the site's own typeface (SIL OFL, see assets/fonts/OFL.txt).
+// Geist, the site’s own typeface (SIL OFL, see assets/fonts/OFL.txt).
 const fonts = Promise.all([
   readFile(join(process.cwd(), "assets/fonts/Geist-Regular.ttf")),
   readFile(join(process.cwd(), "assets/fonts/Geist-ExtraBold.ttf")),
@@ -104,7 +104,7 @@ export default async function Image({ params }: { params: Promise<{ type: string
   const card = (await loadCard(type, id)) ?? {
     title: "PolarLink archive",
     kind: "Archive",
-    meta: "India's polar science, archived and explained",
+    meta: "India’s polar science, archived and explained",
     photoUrl: null,
     program: null,
   };
@@ -123,7 +123,7 @@ export default async function Image({ params }: { params: Promise<{ type: string
     credit = `Photo: ${fallback.credit} (${fallback.license})`;
   }
   const [regular, extraBold] = await fonts;
-  const title = card.title.length > 110 ? `${card.title.slice(0, 107).replace(/\s+\S*$/, "")}...` : card.title;
+  const title = card.title.length > 110 ? `${card.title.slice(0, 107).replace(/\s+\S*$/, "")}…` : card.title;
 
   return new ImageResponse(
     (

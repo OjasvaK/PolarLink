@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { UploadField } from "@/components/content/upload-field";
 import type { SubmissionFormState } from "@/app/submissions/actions";
 import { contentTypes, type ContentSlug, type FieldDef } from "@/lib/content/types";
+import { useFocusFirstError } from "@/lib/use-focus-first-error";
 
 const selectClass =
   "h-8 w-full rounded-lg border border-input bg-transparent px-2.5 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive md:text-sm dark:bg-input/30";
@@ -25,11 +26,12 @@ export function ContentForm({ slug, action, initialValues = {}, expeditions }: P
   const type = contentTypes[slug];
   const values = state.values ?? initialValues;
   const errors = state.errors ?? {};
+  const formRef = useFocusFirstError<HTMLFormElement>(state.errors);
 
   return (
     // key forces inputs to remount with the server-returned values after a
-    // failed submission, since they're uncontrolled.
-    <form key={JSON.stringify(values)} action={formAction} className="grid gap-6" noValidate>
+    // failed submission, since they’re uncontrolled.
+    <form ref={formRef} key={JSON.stringify(values)} action={formAction} className="grid gap-6" noValidate>
       {state.formError && (
         <Alert variant="destructive">
           <AlertDescription>{state.formError}</AlertDescription>
@@ -53,10 +55,10 @@ export function ContentForm({ slug, action, initialValues = {}, expeditions }: P
 
       <div className="flex flex-wrap gap-3">
         <Button type="submit" name="intent" value="submit" disabled={pending}>
-          Submit for review
+          Submit for Review
         </Button>
         <Button type="submit" name="intent" value="draft" variant="outline" disabled={pending}>
-          Save draft
+          Save Draft
         </Button>
       </div>
     </form>
@@ -93,7 +95,7 @@ function FieldInput({
     case "select":
       control = (
         <select {...common} className={selectClass}>
-          <option value="">Choose...</option>
+          <option value="">Choose…</option>
           {field.options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

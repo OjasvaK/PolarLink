@@ -21,11 +21,11 @@ export async function PublicHeader() {
   return (
     <header className="border-b">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 max-sm:w-full">
           <Link href="/" className="text-lg font-semibold tracking-tight">
             PolarLink
           </Link>
-          <nav aria-label="Archive" className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted-foreground">
+          <nav aria-label="Archive" className="-mx-6 flex w-[calc(100%+3rem)] items-center gap-x-5 overflow-x-auto px-6 pb-1 text-sm whitespace-nowrap text-muted-foreground sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 sm:whitespace-normal">
             {archiveNav.map((item) => (
               <Link key={item.href} href={item.href} className="hover:text-foreground">
                 {item.label}

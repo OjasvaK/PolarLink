@@ -49,7 +49,7 @@ function yearRange(year: number) {
 function excerpt(text: string | null | undefined, length = 220) {
   if (!text) return "";
   const clean = text.replace(/\s+/g, " ").trim();
-  return clean.length > length ? `${clean.slice(0, length).replace(/\s+\S*$/, "")}...` : clean;
+  return clean.length > length ? `${clean.slice(0, length).replace(/\s+\S*$/, "")}…` : clean;
 }
 
 // Prisma can only match whole array elements, so partial matches inside
@@ -126,7 +126,7 @@ export async function searchArchive(filters: ArchiveFilters): Promise<ArchiveRes
           take: PER_TYPE_LIMIT,
         })
       : [],
-    // Activities aren't tied to a program or tags, so those filters exclude them.
+    // Activities aren’t tied to a program or tags, so those filters exclude them.
     wants("activity") && !program && !tag
       ? prisma.institutionalActivity.findMany({
           where: {
@@ -241,7 +241,7 @@ export async function latestPublished() {
 }
 
 // Published Content Generator blurbs, keyed by "type:id", for surfacing on
-// the landing page's featured strip (spec section 8.5).
+// the landing page’s featured strip (spec section 8.5).
 export async function publishedBlurbs(sources: { type: string; id: string }[]) {
   if (sources.length === 0) return new Map<string, string>();
   const rows = await prisma.generatedContent.findMany({

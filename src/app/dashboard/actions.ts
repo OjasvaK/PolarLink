@@ -45,7 +45,7 @@ export async function requestResearcherAccess(
     current.researcherStatus === "PENDING" ||
     current.researcherStatus === "APPROVED"
   ) {
-    return { errors: { form: "You can't submit a new request right now." } };
+    return { errors: { form: "You can’t submit a new request right now." } };
   }
 
   await prisma.$transaction([

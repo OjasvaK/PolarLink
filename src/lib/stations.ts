@@ -1,6 +1,6 @@
 import type { Program } from "@/generated/prisma/enums";
 
-// India's polar and high-altitude research stations (spec section 8.3).
+// India’s polar and high-altitude research stations (spec section 8.3).
 // Coordinates and dates are public facts about the stations themselves.
 
 export type Station = {
@@ -29,7 +29,7 @@ export const stations: Station[] = [
     lon: 12.0,
     established: 1983,
     status: "Decommissioned 1990, later used as a supply base",
-    description: "India's first Antarctic station, built on the ice shelf during the third expedition.",
+    description: "India’s first Antarctic station, built on the ice shelf during the third expedition.",
     label: { dx: -10, dy: -8, anchor: "end" },
   },
   {
@@ -59,7 +59,7 @@ export const stations: Station[] = [
     lon: 11.93,
     established: 2008,
     status: "Operational",
-    description: "India's Arctic research station at Ny-Alesund, Svalbard.",
+    description: "India’s Arctic research station at Ny-Alesund, Svalbard.",
     label: { dx: 10, dy: 4, anchor: "start" },
   },
   {

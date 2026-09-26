@@ -88,7 +88,7 @@ export function DraftEditor({
       <div className="flex flex-wrap gap-3">
         {published ? (
           <Button type="submit" name="intent" value="unpublish" variant="outline" size="sm" disabled={pending}>
-            Move back to draft
+            Move Back to Draft
           </Button>
         ) : (
           <Button type="submit" name="intent" value="publish" size="sm" disabled={pending}>
@@ -96,9 +96,9 @@ export function DraftEditor({
           </Button>
         )}
         <Button type="submit" name="intent" value="save" variant="outline" size="sm" disabled={pending}>
-          Save changes
+          Save Changes
         </Button>
-        <CopyButton text={value} label="Copy text" />
+        <CopyButton text={value} label="Copy Text" />
       </div>
     </form>
   );

@@ -6,7 +6,7 @@
 //   --e: 0 while below the viewport, 1 once it has risen into the lower half
 //   --x: 0 while on screen, rising to 1 as it scrolls out through the top
 // The element measured is never the one transformed (see .reveal-inner in
-// globals.css), so transforms can't feed back into the measurement.
+// globals.css), so transforms can’t feed back into the measurement.
 
 type Progress = { e: number; x: number };
 

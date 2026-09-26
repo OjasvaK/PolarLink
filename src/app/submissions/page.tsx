@@ -47,14 +47,14 @@ export default async function SubmissionsPage({ searchParams }: PageProps<"/subm
         <div className="mt-8 flex flex-wrap gap-2">
           {creatable.map((slug) => (
             <Button key={slug} asChild variant="outline" size="sm">
-              <Link href={`/submissions/new/${slug}`}>New {contentTypes[slug].label.toLowerCase()}</Link>
+              <Link href={`/submissions/new/${slug}`}>New {contentTypes[slug].label}</Link>
             </Button>
           ))}
         </div>
 
         {items.length === 0 ? (
           <p className="mt-10 rounded-md border border-dashed p-8 text-center text-muted-foreground">
-            You haven&apos;t submitted anything yet. Start with one of the options above.
+            You haven’t submitted anything yet. Start with one of the options above.
           </p>
         ) : (
           <Table className="mt-8">

@@ -11,8 +11,8 @@ import { milestones } from "@/lib/milestones";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Timeline | PolarLink",
-  description: "India's Antarctic, Arctic and Himalayan research programs from 1981 to today.",
+  title: "Program Timeline | PolarLink",
+  description: "India’s Antarctic, Arctic and Himalayan research programs from 1981 to today.",
 };
 
 type Entry = {
@@ -57,9 +57,9 @@ export default async function TimelinePage({ searchParams }: PageProps<"/timelin
     <div className="flex min-h-svh flex-col bg-background">
       <PublicHeader />
       <main className="mx-auto w-full flex-1 max-w-4xl px-6 py-12">
-        <h1 className="text-4xl font-extrabold tracking-tight">Program timeline</h1>
+        <h1 className="text-4xl font-extrabold tracking-tight">Program Timeline</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
-          Milestones of India&apos;s polar and Himalayan research since 1981,
+          Milestones of India’s polar and Himalayan research since 1981,
           with every expedition published in the archive.
         </p>
 

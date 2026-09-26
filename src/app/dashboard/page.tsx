@@ -20,9 +20,9 @@ const roleLabels: Record<Role, string> = {
   ADMIN: "Admin",
 };
 
-// Tools each role unlocks (spec section 8.2). Tools without an href aren't
-// built yet (build plan step 6 onward), so they're listed without links
-// rather than pointing at pages that don't exist.
+// Tools each role unlocks (spec section 8.2). Tools without an href aren’t
+// built yet (build plan step 6 onward), so they’re listed without links
+// rather than pointing at pages that don’t exist.
 const tools: { title: string; description: string; minimum: Role; href?: string }[] = [
   {
     title: "My Submissions",
@@ -43,7 +43,7 @@ const tools: { title: string; description: string; minimum: Role; href?: string 
     href: "/generator",
   },
   {
-    title: "Researcher requests",
+    title: "Researcher Requests",
     description: "Approve or reject pending requests for researcher access.",
     minimum: "ADMIN",
     href: "/admin/researchers",
@@ -82,7 +82,7 @@ export default async function DashboardPage({ searchParams }: PageProps<"/dashbo
         {denied && (
           <Alert variant="destructive" className="mb-8">
             <AlertDescription>
-              Your account doesn&apos;t have access to that page.
+              Your account doesn’t have access to that page.
             </AlertDescription>
           </Alert>
         )}
@@ -102,7 +102,7 @@ export default async function DashboardPage({ searchParams }: PageProps<"/dashbo
         {user.role === "PUBLIC" && (
           <Card className="mt-10">
             <CardHeader>
-              <CardTitle>Researcher access</CardTitle>
+              <CardTitle>Researcher Access</CardTitle>
               <CardDescription>
                 Researchers can submit expedition reports, datasets, and media
                 to the archive. Requests are reviewed by an administrator.
@@ -114,14 +114,14 @@ export default async function DashboardPage({ searchParams }: PageProps<"/dashbo
                   Your request is awaiting review
                   {user.researcherRequestedAt &&
                     ` (submitted ${dateFormat.format(user.researcherRequestedAt)})`}
-                  . You&apos;ll get researcher tools here once it&apos;s approved.
+                  . You’ll get researcher tools here once it’s approved.
                 </p>
               ) : (
                 <>
                   {user.researcherStatus === "REJECTED" && (
                     <Alert className="mb-6">
                       <AlertDescription>
-                        Your previous request wasn&apos;t approved. You can
+                        Your previous request wasn’t approved. You can
                         submit a new one with more detail.
                       </AlertDescription>
                     </Alert>
@@ -135,7 +135,7 @@ export default async function DashboardPage({ searchParams }: PageProps<"/dashbo
 
         {availableTools.length > 0 && (
           <section className="mt-10">
-            <h2 className="text-lg font-semibold">Your tools</h2>
+            <h2 className="text-lg font-semibold">Your Tools</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {availableTools.map((tool) => (
                 <Card key={tool.title} className={tool.href ? "relative transition-colors hover:bg-muted/50" : undefined}>

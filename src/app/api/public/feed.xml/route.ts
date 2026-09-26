@@ -11,7 +11,7 @@ function xml(text: string) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;")
-    // Characters XML 1.0 doesn't allow at all.
+    // Characters XML 1.0 doesn’t allow at all.
     .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
 }
 
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
   <channel>
     <title>PolarLink archive</title>
     <link>${xml(origin)}/archive</link>
-    <description>Newly published expedition reports, datasets, publications, media and activities from India's polar research programs.</description>
+    <description>Newly published expedition reports, datasets, publications, media and activities from India’s polar research programs.</description>
     <language>en-in</language>
     <lastBuildDate>${lastBuild.toUTCString()}</lastBuildDate>
     <atom:link href="${xml(origin)}/api/public/feed.xml" rel="self" type="application/rss+xml" />

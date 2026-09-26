@@ -21,7 +21,7 @@ export const milestones: Milestone[] = [
   {
     year: 1983,
     title: "Dakshin Gangotri established",
-    description: "India's first Antarctic station is built on the ice shelf during the third expedition.",
+    description: "India’s first Antarctic station is built on the ice shelf during the third expedition.",
     program: "ANTARCTIC",
   },
   {
@@ -39,13 +39,13 @@ export const milestones: Milestone[] = [
   {
     year: 1998,
     title: "NCAOR founded in Goa",
-    description: "The National Centre for Antarctic and Ocean Research is set up to coordinate India's polar program.",
+    description: "The National Centre for Antarctic and Ocean Research is set up to coordinate India’s polar program.",
     program: null,
   },
   {
     year: 2008,
     title: "Himadri opens in the Arctic",
-    description: "India's Arctic research station opens at Ny-Alesund, Svalbard.",
+    description: "India’s Arctic research station opens at Ny-Alesund, Svalbard.",
     program: "ARCTIC",
   },
   {
@@ -69,7 +69,7 @@ export const milestones: Milestone[] = [
   {
     year: 2022,
     title: "Indian Antarctic Act",
-    description: "Parliament passes India's first domestic legislation governing activities in Antarctica.",
+    description: "Parliament passes India’s first domestic legislation governing activities in Antarctica.",
     program: "ANTARCTIC",
   },
 ];

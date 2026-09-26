@@ -8,7 +8,7 @@ async function decide(userId: string, decision: "approve" | "reject") {
   const admin = await requireRole("ADMIN", "/admin/researchers");
 
   // Only act on a request that is still pending, so a double click or a stale
-  // tab can't re-approve or overwrite a decision already made.
+  // tab can’t re-approve or overwrite a decision already made.
   const { count } = await prisma.user.updateMany({
     where: { id: userId, researcherStatus: "PENDING", role: "PUBLIC" },
     data:

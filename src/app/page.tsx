@@ -28,7 +28,7 @@ export const revalidate = 300;
 
 function excerpt(text: string, length = 160) {
   const clean = text.replace(/\s+/g, " ").trim();
-  return clean.length > length ? `${clean.slice(0, length).replace(/\s+\S*$/, "")}...` : clean;
+  return clean.length > length ? `${clean.slice(0, length).replace(/\s+\S*$/, "")}…` : clean;
 }
 
 export default async function Home() {
@@ -96,7 +96,7 @@ export default async function Home() {
           <div className="mx-auto max-w-6xl px-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">Stations</p>
             <h2 className="mt-3 max-w-2xl text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">
-              From Goa to both poles and the Himalaya
+              From Goa to Both Poles and the Himalaya
             </h2>
             <div className="mt-12">
               <StationMap showList={false} />
@@ -122,7 +122,7 @@ export default async function Home() {
         {featured.length > 0 && (
           <section className="mx-auto max-w-6xl px-6 py-16">
             <div className="flex items-baseline justify-between gap-4">
-              <h2 className="text-xl font-semibold">Recently published</h2>
+              <h2 className="text-xl font-semibold">Recently Published</h2>
               <Link href="/archive" className="text-sm text-muted-foreground hover:text-foreground">
                 Browse the archive
               </Link>

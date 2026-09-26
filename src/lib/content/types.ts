@@ -35,9 +35,9 @@ export type ContentTypeDef = {
   plural: string;
   // Minimum role allowed to create this type.
   minRole: Role;
-  // Field shown as the item's title in lists.
+  // Field shown as the item’s title in lists.
   titleField: string;
-  // Column holding the submitting user's id.
+  // Column holding the submitting user’s id.
   ownerField: "submittedById" | "uploadedById";
   fields: readonly FieldDef[];
   // Cross-field rule, returns an error keyed by field name.
@@ -67,7 +67,7 @@ const expeditionLink: FieldDef = {
 export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
   expedition: {
     slug: "expedition",
-    label: "Expedition report",
+    label: "Expedition Report",
     plural: "Expeditions",
     minRole: "RESEARCHER",
     titleField: "name",
@@ -84,7 +84,7 @@ export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
     refine: (data) => {
       const start = data.startDate as Date | null;
       const end = data.endDate as Date | null;
-      if (start && end && end < start) return { endDate: "End date can't be before the start date." };
+      if (start && end && end < start) return { endDate: "End date can’t be before the start date." };
     },
   },
   dataset: {
@@ -129,7 +129,7 @@ export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
   },
   media: {
     slug: "media",
-    label: "Media item",
+    label: "Media Item",
     plural: "Media",
     minRole: "RESEARCHER",
     titleField: "altText",
@@ -154,7 +154,7 @@ export const contentTypes: Record<ContentSlug, ContentTypeDef> = {
   },
   activity: {
     slug: "activity",
-    label: "Institutional activity",
+    label: "Institutional Activity",
     plural: "Institutional activities",
     minRole: "EDITOR",
     titleField: "title",

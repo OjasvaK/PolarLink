@@ -7,7 +7,7 @@ import { prisma } from "@/lib/db";
 import { approveResearcher, rejectResearcher } from "./actions";
 
 export const metadata: Metadata = {
-  title: "Researcher requests | PolarLink",
+  title: "Researcher Requests | PolarLink",
 };
 
 const dateFormat = new Intl.DateTimeFormat("en-IN", { dateStyle: "medium" });
@@ -33,7 +33,7 @@ export default async function ResearcherRequestsPage() {
       <AppHeader />
 
       <main className="mx-auto max-w-5xl px-6 py-12">
-        <h1 className="text-3xl font-extrabold tracking-tight">Researcher requests</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight">Researcher Requests</h1>
         <p className="mt-2 text-muted-foreground">
           Approving a request gives the user researcher access immediately.
         </p>

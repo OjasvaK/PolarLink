@@ -9,7 +9,7 @@ import { imageCredits } from "@/lib/image-credits";
 import { safeCallbackUrl } from "@/lib/safe-callback-url";
 
 export const metadata: Metadata = {
-  title: "Sign in | PolarLink",
+  title: "Sign In | PolarLink",
 };
 
 const photo = imageCredits.kongsfjorden;
@@ -58,7 +58,7 @@ export default async function SignInPage({ searchParams }: PageProps<"/signin">)
         </Link>
 
         <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-16">
-          <h1 className="text-4xl font-extrabold tracking-tight">Sign in</h1>
+          <h1 className="text-4xl font-extrabold tracking-tight">Sign In</h1>
           <p className="mt-3 text-pretty text-white/70">
             Researchers sign in to submit expedition reports, datasets, and
             media. Anyone can browse the archive without an account.

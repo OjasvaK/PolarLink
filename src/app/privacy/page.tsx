@@ -19,7 +19,7 @@ export default function PrivacyPage() {
         </p>
       }
     >
-      <Section title="Who is responsible">
+      <Section title="Who Is Responsible">
         <p>
           PolarLink is run by its Smart India Hackathon 2026 project team, who
           decide how the personal data described here is used. You can reach
@@ -27,9 +27,9 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section title="Browsing without an account">
+      <Section title="Browsing Without an Account">
         <p>
-          You can browse and search the archive without signing in. We don&apos;t
+          You can browse and search the archive without signing in. We don’t
           use analytics or advertising trackers. Your theme choice (light or
           dark) is stored only in your own browser. Our hosting providers keep
           routine server logs (such as IP address and request time) for
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section title="What else we store about account holders">
+      <Section title="What Else We Store About Account Holders">
         <ul>
           <li>Your role (public, researcher, editor or administrator).</li>
           <li>
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section title="Where the data is kept">
+      <Section title="Where the Data Is Kept">
         <p>
           The site is hosted on Vercel. The database and uploaded files are
           stored with Supabase, whose servers for this project are in the
@@ -98,15 +98,15 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section title="What we don't do">
+      <Section title="What We Don’t Do">
         <p>
           We do not sell, rent or share your personal data with third parties
-          for marketing, and we don&apos;t use it for anything other than
+          for marketing, and we don’t use it for anything other than
           running the archive and its review workflow.
         </p>
       </Section>
 
-      <Section title="How long we keep it">
+      <Section title="How Long We Keep It">
         <p>
           We keep your account and submissions while the prototype is running.
           You can ask us to delete your account at any time. Published
@@ -116,7 +116,7 @@ export default function PrivacyPage() {
         </p>
       </Section>
 
-      <Section title="Your rights under India's DPDP Act, 2023">
+      <Section title="Your Rights under India’s DPDP Act, 2023">
         <p>
           PolarLink processes personal data of people in India through OAuth
           sign-in, so we follow the principles of the Digital Personal Data

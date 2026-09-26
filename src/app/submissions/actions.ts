@@ -25,7 +25,7 @@ export async function saveSubmission(
   const type = contentTypes[slug];
   const user = await requireRole("RESEARCHER");
   if (!hasRole(user.role, type.minRole)) {
-    return { formError: `Your role can't submit ${type.plural.toLowerCase()}.` };
+    return { formError: `Your role can’t submit ${type.plural.toLowerCase()}.` };
   }
 
   const parsed = parseContentForm(type, formData);
@@ -56,7 +56,7 @@ export async function saveSubmission(
     if (!existing || ownerOf(slug, existing) !== user.id) {
       return { formError: "Submission not found." };
     }
-    // Only unpublished work that isn't already in review can be edited.
+    // Only unpublished work that isn’t already in review can be edited.
     const { count } = await delegates[slug].updateMany({
       where: { id, status: { in: [...editableStatuses] } },
       data: { ...data, status },

@@ -127,6 +127,11 @@
   html {
     @apply font-sans;
   }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
 }
 /* Landing page scroll reveals (src/components/landing/reveal.tsx, driven by
    src/lib/scroll-reveal.ts). --e is entrance progress, --x is exit progress;
@@ -184,6 +189,10 @@
 }
 .station-map .map-route {
   opacity: 0;
+}
+.station-map .map-station:focus-visible circle:first-child {
+  stroke: var(--ring);
+  stroke-width: 3;
 }
 .station-map[data-inview="true"] .map-route {
   opacity: 0.7;

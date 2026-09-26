@@ -57,7 +57,7 @@ export async function StationMap({ showList = true }: { showList?: boolean }) {
           className="h-auto w-full"
         >
           <title id="station-map-title">
-            Map of India&apos;s research stations in Antarctica, the Arctic and the Himalaya
+            Map of India’s research stations in Antarctica, the Arctic and the Himalaya
           </title>
 
           <g className="stroke-foreground/10" strokeWidth={0.5} fill="none">

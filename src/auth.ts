@@ -8,7 +8,7 @@ import { prisma } from "@/lib/db";
 
 // ORCID has no built-in Auth.js provider, but it is a standard OIDC issuer,
 // so the generic OIDC provider covers it (spec section 5). The issuer is the
-// sandbox until a production ORCID client is approved. ORCID's OIDC profile
+// sandbox until a production ORCID client is approved. ORCID’s OIDC profile
 // carries no email, so ORCID-only users have `email = null`.
 function Orcid(): Provider {
   return {
@@ -37,12 +37,12 @@ export const configuredProviders = providers.map((provider) => {
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  // The adapter is typed against @prisma/client's default export, which
-  // Prisma 7 no longer populates; this project's client is generated to
+  // The adapter is typed against @prisma/client’s default export, which
+  // Prisma 7 no longer populates; this project’s client is generated to
   // src/generated/prisma and exposes the same model API the adapter uses.
   adapter: PrismaAdapter(prisma as unknown as Parameters<typeof PrismaAdapter>[0]),
   // Database sessions: role and researcher status are read from the User row
-  // on every session lookup, so an Admin's role change applies immediately.
+  // on every session lookup, so an Admin’s role change applies immediately.
   session: { strategy: "database" },
   providers,
   pages: { signIn: "/signin" },

@@ -21,7 +21,7 @@ export async function requestUpload(input: {
   }
   const rules = uploadBuckets[input.bucket];
   const contentType = resolveContentType(input.bucket, input.fileName, input.contentType);
-  if (!contentType) return { ok: false, error: "That file type isn't supported here." };
+  if (!contentType) return { ok: false, error: "That file type isn’t supported here." };
   if (!Number.isFinite(input.size) || input.size <= 0 || input.size > rules.maxBytes) {
     return { ok: false, error: `Files must be smaller than ${formatBytes(rules.maxBytes)}.` };
   }

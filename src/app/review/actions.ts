@@ -39,7 +39,7 @@ export async function reviewSubmission(
   const item = await getContent(slug, id);
   if (!item) return { error: "Submission not found." };
   if (ownerOf(slug, item) === reviewer.id && reviewer.role !== "ADMIN") {
-    return { error: "You can't review your own submission." };
+    return { error: "You can’t review your own submission." };
   }
 
   const outcome = outcomes[decision];

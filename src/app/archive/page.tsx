@@ -14,7 +14,7 @@ import { contentSlugs, contentTypes, isContentSlug } from "@/lib/content/types";
 
 export const metadata: Metadata = {
   title: "Archive | PolarLink",
-  description: "Search expedition reports, datasets, publications, media and activities from India's polar research programs.",
+  description: "Search expedition reports, datasets, publications, media and activities from India’s polar research programs.",
 };
 
 const selectClass =
@@ -52,14 +52,14 @@ export default async function ArchivePage({ searchParams }: PageProps<"/archive"
         <h1 className="text-4xl font-extrabold tracking-tight">{heading}</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Published expedition reports, datasets, publications, media and
-          institutional activities from India&apos;s Antarctic, Arctic and
+          institutional activities from India’s Antarctic, Arctic and
           Himalayan programs.
         </p>
 
         <form role="search" className="mt-8 grid gap-4 rounded-lg border p-4 sm:grid-cols-2 lg:grid-cols-6">
           <div className="grid gap-1.5 sm:col-span-2 lg:col-span-2">
             <Label htmlFor="q">Search</Label>
-            <Input id="q" name="q" type="search" defaultValue={filters.q} placeholder="Station, topic, author..." />
+            <Input id="q" name="q" type="search" defaultValue={filters.q} placeholder="Station, topic, author…" />
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="type">Type</Label>

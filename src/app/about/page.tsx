@@ -4,7 +4,7 @@ import { ContactLine, LegalPage, Section } from "@/components/legal-page";
 import { imageCredits } from "@/lib/image-credits";
 
 export const metadata: Metadata = {
-  title: "About this project | PolarLink",
+  title: "About This Project | PolarLink",
   description: "What PolarLink is, who built it, and credits for its photographs and data.",
 };
 
@@ -13,10 +13,10 @@ export default function AboutPage() {
 
   return (
     <LegalPage
-      title="About this project"
+      title="About This Project"
       intro={
         <p>
-          PolarLink is an archive and outreach portal for India&apos;s
+          PolarLink is an archive and outreach portal for India’s
           Antarctic, Arctic and Himalayan research: expedition reports,
           datasets, publications, media and institutional news in one
           searchable place, with tools to turn published entries into
@@ -24,16 +24,16 @@ export default function AboutPage() {
         </p>
       }
     >
-      <Section title="Why it exists">
+      <Section title="Why It Exists">
         <p>
           It was built for Smart India Hackathon 2026, problem statement 26063,
           which asks for a platform to archive and disseminate information
-          about India&apos;s polar research. It is a prototype and not an
+          about India’s polar research. It is a prototype and not an
           official website of NCPOR or the Government of India.
         </p>
       </Section>
 
-      <Section title="How content gets here">
+      <Section title="How Content Gets Here">
         <ul>
           <li>Researchers sign in, request researcher access, and submit material.</li>
           <li>Editors review each submission and approve, reject or request changes.</li>
@@ -45,7 +45,7 @@ export default function AboutPage() {
         </ul>
       </Section>
 
-      <Section id="sample-data" title="Sample data">
+      <Section id="sample-data" title="Sample Data">
         <p>
           To demonstrate the archive before real material is loaded, PolarLink
           includes illustrative records, each marked &ldquo;Sample data&rdquo;.
@@ -56,7 +56,7 @@ export default function AboutPage() {
         </p>
       </Section>
 
-      <Section id="credits" title="Photograph credits">
+      <Section id="credits" title="Photograph Credits">
         <p>
           None of the photographs on this site are NCPOR photographs. They are
           used under the licenses shown, from Wikimedia Commons and its sources.
@@ -74,7 +74,7 @@ export default function AboutPage() {
         </ul>
       </Section>
 
-      <Section title="Other credits">
+      <Section title="Other Credits">
         <ul>
           <li>
             Map outlines from{" "}

@@ -18,9 +18,9 @@ export default function TermsPage() {
         </p>
       }
     >
-      <Section title="What PolarLink is">
+      <Section title="What PolarLink Is">
         <p>
-          PolarLink is a prototype archive and outreach portal for India&apos;s
+          PolarLink is a prototype archive and outreach portal for India’s
           polar and Himalayan research, built for Smart India Hackathon 2026
           (problem statement 26063). It is not an official website of the
           National Centre for Polar and Ocean Research (NCPOR) or of the
@@ -33,7 +33,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section title="Using the archive">
+      <Section title="Using the Archive">
         <p>
           Anyone may browse, search and link to published content. Each
           dataset, publication and media item carries its own license or
@@ -42,8 +42,8 @@ export default function TermsPage() {
         </p>
         <p>
           The public API and RSS feed are provided for reasonable, read-only
-          use and are rate limited. Don&apos;t try to get around the limits,
-          overload the service or access parts of it you aren&apos;t authorised
+          use and are rate limited. Don’t try to get around the limits,
+          overload the service or access parts of it you aren’t authorised
           to use.
         </p>
       </Section>
@@ -58,7 +58,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section title="Contributing content">
+      <Section title="Contributing Content">
         <ul>
           <li>
             Only submit material you have the right to share, with accurate
@@ -74,13 +74,13 @@ export default function TermsPage() {
             Publication does not mean NCPOR endorses the content.
           </li>
           <li>
-            Don&apos;t upload personal data about other people, confidential
+            Don’t upload personal data about other people, confidential
             or classified information, or anything unlawful.
           </li>
         </ul>
       </Section>
 
-      <Section title="No warranty">
+      <Section title="No Warranty">
         <p>
           PolarLink is provided as is, as a prototype. Content may be
           incomplete or out of date, the service may change or stop, and data
@@ -97,7 +97,7 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section title="Changes and contact">
+      <Section title="Changes and Contact">
         <p>
           We may update these terms; the date at the top shows the latest
           version. These terms are governed by the laws of India. Questions:

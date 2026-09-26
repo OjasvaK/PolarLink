@@ -12,7 +12,7 @@ import { reviewSubmission } from "../../actions";
 import { ReviewForm } from "./review-form";
 
 export const metadata: Metadata = {
-  title: "Review submission | PolarLink",
+  title: "Review Submission | PolarLink",
 };
 
 export default async function ReviewItemPage({ params }: PageProps<"/review/[type]/[id]">) {

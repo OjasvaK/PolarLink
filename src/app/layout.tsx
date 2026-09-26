@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PolarLink",
   description:
-    "Archive and outreach portal for India's polar science program.",
+    "Archive and outreach portal for India’s polar science program.",
   alternates: {
     types: { "application/rss+xml": [{ url: "/api/public/feed.xml", title: "PolarLink archive" }] },
   },
