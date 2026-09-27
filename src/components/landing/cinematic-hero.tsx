@@ -1,47 +1,39 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, Pause, Play } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { heroCopy } from "@/lib/mock-landing-data";
 import { imageCredits } from "@/lib/image-credits";
 import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
+import { usePolarMotion } from "@/components/landing/polar-motion-context";
+import { PolarAuroraScene } from "@/components/landing/polar-aurora-scene";
 
 const credit = imageCredits.nyAlesundAurora;
 
 export function CinematicHero() {
-  const imageRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = usePrefersReducedMotion();
-  // The slow zoom loops indefinitely, so it needs a pause control (spec
-  // section 9: autoplay motion over 5 seconds must be stoppable).
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    if (reducedMotion) return;
-    let ticking = false;
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const offset = window.scrollY * 0.25;
-        if (imageRef.current) {
-          imageRef.current.style.transform = `translateY(${offset}px)`;
-        }
-        ticking = false;
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [reducedMotion]);
+  // The aurora + snow scene and the photo's slow zoom both loop indefinitely;
+  // the shared PolarMotionToggle (rendered once in the root layout) is the
+  // pause control spec section 9 requires for autoplay motion over 5s.
+  const { paused } = usePolarMotion();
 
   return (
     <section className="relative flex h-svh min-h-[36rem] items-center justify-center overflow-hidden bg-black">
-      <div ref={imageRef} className="absolute inset-0 overflow-hidden">
+      {/* The animated sky sits behind everything and shows through the
+          photo's soft top/bottom edges. */}
+      <div className="absolute inset-0 overflow-hidden">
+        <PolarAuroraScene
+          paused={paused}
+          reducedMotion={reducedMotion}
+          className="hero-intro-image absolute inset-0 size-full"
+        />
+      </div>
+
+      <div className="absolute inset-0 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_26%,black_66%,transparent)]">
         <div
           className={`hero-intro-image absolute inset-0 ${reducedMotion ? "" : "hero-kenburns"}`}
           style={{ animationPlayState: paused ? "paused" : undefined }}
@@ -51,7 +43,7 @@ export function CinematicHero() {
             alt=""
             fill
             priority
-            className="object-cover"
+            className="object-cover opacity-70"
             sizes="100vw"
           />
         </div>
@@ -59,7 +51,7 @@ export function CinematicHero() {
 
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20"
+        className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10"
       />
 
       <div className="relative mx-auto max-w-4xl px-6 py-24 text-center text-white">
@@ -100,18 +92,6 @@ export function CinematicHero() {
         </div>
       </div>
 
-      {!reducedMotion && (
-        <button
-          type="button"
-          onClick={() => setPaused((p) => !p)}
-          aria-label={paused ? "Play background motion" : "Pause background motion"}
-          aria-pressed={paused}
-          className="absolute bottom-4 left-4 flex size-9 items-center justify-center rounded-md text-white/60 transition-colors hover:bg-white/10 hover:text-white focus-visible:ring-3 focus-visible:ring-white/60 focus-visible:outline-none"
-        >
-          {paused ? <Play className="size-4" aria-hidden /> : <Pause className="size-4" aria-hidden />}
-        </button>
-      )}
-
       <a
         href="#programs"
         aria-label="Scroll to the research programs"
@@ -131,7 +111,7 @@ export function CinematicHero() {
       </a>
 
       <style>{`
-        /* Sub-second intro: the photo fades up, then the copy rises in.
+        /* Sub-second intro: the scene fades up, then the copy rises in.
            Nothing is blocked while it plays. */
         @media (prefers-reduced-motion: no-preference) {
           .hero-intro-image.hero-kenburns {
@@ -161,15 +141,12 @@ export function CinematicHero() {
           0% { transform: scale(1); }
           100% { transform: scale(1.12); }
         }
-        .hero-kenburns {
-          animation: hero-kenburns 20s ease-in-out infinite alternate;
-        }
         @keyframes hero-scroll-cue {
-          0%, 100% { transform: translateY(0); opacity: 0.6; }
-          50% { transform: translateY(6px); opacity: 1; }
+          0%, 100% { transform: translateY(0); opacity: 0.55; }
+          50% { transform: translateY(12px); opacity: 1; }
         }
         .hero-scroll-cue {
-          animation: hero-scroll-cue 2s ease-in-out infinite;
+          animation: hero-scroll-cue 1.6s ease-in-out infinite;
         }
       `}</style>
     </section>

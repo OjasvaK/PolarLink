@@ -6,6 +6,7 @@ import { auth, configuredProviders, signIn } from "@/auth";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { imageCredits } from "@/lib/image-credits";
+import { PolarGlacierAccent } from "@/components/landing/polar-glacier-accent";
 import { safeCallbackUrl } from "@/lib/safe-callback-url";
 
 export const metadata: Metadata = {
@@ -54,12 +55,14 @@ export default async function SignInPage({ searchParams }: PageProps<"/signin">)
         </a>
       </div>
 
-      <div className="flex flex-col px-6 py-8 sm:px-12">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
+      <div className="relative flex flex-col overflow-hidden px-6 py-8 sm:px-12">
+        <PolarGlacierAccent className="pointer-events-none absolute inset-0 size-full opacity-80" />
+
+        <Link href="/" className="relative text-lg font-semibold tracking-tight">
           PolarLink
         </Link>
 
-        <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-16">
+        <div className="relative mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-16">
           <h1 className="text-4xl font-extrabold tracking-tight">Sign In</h1>
           <p className="mt-3 text-pretty text-white/70">
             Researchers sign in to submit expedition reports, datasets, and

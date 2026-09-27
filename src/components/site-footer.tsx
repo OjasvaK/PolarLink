@@ -9,7 +9,7 @@ const links = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t">
+    <footer className="border-t bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-md">
           A prototype built for Smart India Hackathon 2026 (problem statement

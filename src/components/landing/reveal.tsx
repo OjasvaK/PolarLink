@@ -63,19 +63,22 @@ export function RevealImage({
   return (
     <figure ref={ref} data-reveal={from} className={cn("flex flex-col", className)}>
       <div className="reveal-inner flex flex-1 flex-col">
-        <div
-          className={cn(
-            "relative overflow-hidden rounded-md bg-neutral-900",
-            frameClassName
-          )}
-        >
-          <Image
-            src={image.file}
-            alt={image.title}
-            fill
-            sizes={sizes}
-            className="reveal-photo object-cover"
-          />
+        <div className="relative">
+          <div aria-hidden className="polar-image-glow" />
+          <div
+            className={cn(
+              "relative overflow-hidden rounded-md bg-neutral-900",
+              frameClassName
+            )}
+          >
+            <Image
+              src={image.file}
+              alt={image.title}
+              fill
+              sizes={sizes}
+              className="reveal-photo object-cover"
+            />
+          </div>
         </div>
         <figcaption className="mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-xs text-white/50">
           <span className="text-white/70">{image.title}</span>

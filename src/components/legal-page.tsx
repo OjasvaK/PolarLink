@@ -28,9 +28,9 @@ export function LegalPage({
   children: ReactNode;
 }) {
   return (
-    <div className="flex min-h-svh flex-col bg-background">
+    <div className="flex min-h-svh flex-col">
       <PublicHeader />
-      <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
+      <main className="bg-background mx-auto w-full max-w-3xl flex-1 px-6 py-12">
         <h1 className="text-4xl font-extrabold tracking-tight">{title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">Last updated {lastUpdated}</p>
         {intro && <div className="mt-6 text-lg text-pretty text-muted-foreground">{intro}</div>}

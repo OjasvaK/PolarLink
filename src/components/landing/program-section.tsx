@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Reveal } from "./reveal";
+import { PolarGlacierAccent } from "./polar-glacier-accent";
 
 type ProgramSectionProps = {
   eyebrow: string;
@@ -15,8 +16,9 @@ export function ProgramSection({
   children,
 }: ProgramSectionProps) {
   return (
-    <section className="overflow-x-clip bg-black py-20 text-white sm:py-24">
-      <div className="mx-auto w-full max-w-6xl px-6">
+    <section className="relative overflow-x-clip bg-black py-20 text-white sm:py-24">
+      <PolarGlacierAccent className="pointer-events-none absolute inset-0 size-full opacity-60" />
+      <div className="relative mx-auto w-full max-w-6xl px-6">
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
             {eyebrow}

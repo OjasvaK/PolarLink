@@ -46,9 +46,9 @@ export default async function ArchivePage({ searchParams }: PageProps<"/archive"
   const heading = filters.type ? contentTypes[filters.type].plural : "Archive";
 
   return (
-    <div className="flex min-h-svh flex-col bg-background">
+    <div className="flex min-h-svh flex-col">
       <PublicHeader />
-      <main className="mx-auto w-full flex-1 max-w-6xl px-6 py-12">
+      <main className="bg-background mx-auto w-full flex-1 max-w-6xl px-6 py-12">
         <h1 className="text-4xl font-extrabold tracking-tight">{heading}</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Published expedition reports, datasets, publications, media and

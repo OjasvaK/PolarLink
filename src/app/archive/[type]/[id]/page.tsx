@@ -74,9 +74,9 @@ export default async function ArchiveItemPage({ params }: PageProps<"/archive/[t
   if (!loaded) notFound();
 
   return (
-    <div className="flex min-h-svh flex-col bg-background">
+    <div className="flex min-h-svh flex-col">
       <PublicHeader />
-      <main className="mx-auto w-full flex-1 max-w-4xl px-6 py-12">
+      <main className="bg-background mx-auto w-full flex-1 max-w-4xl px-6 py-12">
         <Link href={`/archive?type=${loaded.slug}`} className="text-sm text-muted-foreground hover:text-foreground">
           All {contentTypes[loaded.slug].plural.toLowerCase()}
         </Link>

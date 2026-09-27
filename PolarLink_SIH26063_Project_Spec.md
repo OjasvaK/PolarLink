@@ -1,4 +1,4 @@
-# PolarLink — SIH 2026 PS 26063 Project Specification
+ # PolarLink — SIH 2026 PS 26063 Project Specification
 
 **For: Claude Code (or any coding agent building this).** This file is a complete, self-contained brief. Read it fully before writing any code. Where a decision was explicitly made by the team, it is marked **DECIDED**. Where something is a reasonable default that can be revisited, it is marked **ASSUMED**. Do not silently deviate from a DECIDED item; flag it to the user instead.
 

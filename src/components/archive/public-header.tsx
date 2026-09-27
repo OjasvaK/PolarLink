@@ -19,7 +19,7 @@ export async function PublicHeader() {
   const session = await auth();
 
   return (
-    <header className="border-b">
+    <header className="border-b bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
         <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 max-sm:w-full">
           <Link href="/" className="text-lg font-semibold tracking-tight">

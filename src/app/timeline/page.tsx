@@ -54,9 +54,9 @@ export default async function TimelinePage({ searchParams }: PageProps<"/timelin
   const filters = [{ value: undefined, label: "All programs" }, ...programs];
 
   return (
-    <div className="flex min-h-svh flex-col bg-background">
+    <div className="flex min-h-svh flex-col">
       <PublicHeader />
-      <main className="mx-auto w-full flex-1 max-w-4xl px-6 py-12">
+      <main className="bg-background mx-auto w-full flex-1 max-w-4xl px-6 py-12">
         <h1 className="text-4xl font-extrabold tracking-tight">Program Timeline</h1>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           Milestones of India’s polar and Himalayan research since 1981,

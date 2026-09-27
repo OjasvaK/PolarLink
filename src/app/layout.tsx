@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { PolarMotionProvider } from "@/components/landing/polar-motion-context";
+import { PolarBackdrop } from "@/components/landing/polar-backdrop";
+import { PolarMotionToggle } from "@/components/landing/polar-motion-toggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,7 +36,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <PolarMotionProvider>
+            <PolarBackdrop />
+            {children}
+            <PolarMotionToggle />
+          </PolarMotionProvider>
         </ThemeProvider>
       </body>
     </html>
