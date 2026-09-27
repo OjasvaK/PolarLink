@@ -27,8 +27,11 @@ function Orcid(): Provider {
 // Only offer a provider once its client is actually registered, so the
 // sign-in page never shows a button that cannot complete a real OAuth flow.
 const providers: Provider[] = [];
-if (process.env.AUTH_GOOGLE_ID) providers.push(Google);
-if (process.env.AUTH_GITHUB_ID) providers.push(GitHub);
+// Google and GitHub both return verified email addresses, so signing in with
+// either one reaches the same account when the emails match (otherwise
+// Auth.js refuses the second provider with OAuthAccountNotLinked).
+if (process.env.AUTH_GOOGLE_ID) providers.push(Google({ allowDangerousEmailAccountLinking: true }));
+if (process.env.AUTH_GITHUB_ID) providers.push(GitHub({ allowDangerousEmailAccountLinking: true }));
 if (process.env.AUTH_ORCID_ID) providers.push(Orcid());
 
 export const configuredProviders = providers.map((provider) => {
@@ -52,10 +55,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         role: Role;
         researcherStatus: ResearcherStatus;
       };
-      session.user.id = dbUser.id;
-      session.user.role = dbUser.role;
-      session.user.researcherStatus = dbUser.researcherStatus;
-      return session;
+      // Return only what the app needs: with database sessions Auth.js
+      // passes the whole User row, which /api/auth/session would otherwise
+      // expose in full (request reason, affiliation, timestamps).
+      return {
+        expires: session.expires,
+        user: {
+          id: dbUser.id,
+          name: dbUser.name,
+          email: dbUser.email,
+          image: dbUser.image,
+          role: dbUser.role,
+          researcherStatus: dbUser.researcherStatus,
+        },
+      };
     },
   },
 });
