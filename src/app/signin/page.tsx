@@ -19,7 +19,9 @@ const errorMessages: Record<string, string> = {
   OAuthAccountNotLinked:
     "That email is already linked to a different sign-in method. Use the provider you signed up with.",
   AccessDenied: "Access was denied. Please try again.",
-  Configuration: "Sign-in is misconfigured on the server. Please try again later.",
+  Configuration:
+    "Sign-in couldn’t be completed. The provider rejected the request or the server is misconfigured. Please try again later.",
+  Verification: "That sign-in link has expired. Please try again.",
 };
 
 export default async function SignInPage({ searchParams }: PageProps<"/signin">) {

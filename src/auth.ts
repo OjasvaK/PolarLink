@@ -48,7 +48,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   // on every session lookup, so an Admin’s role change applies immediately.
   session: { strategy: "database" },
   providers,
-  pages: { signIn: "/signin" },
+  // Errors come back to our own sign-in page (with ?error=) instead of
+  // Auth.js's unstyled default error page.
+  pages: { signIn: "/signin", error: "/signin" },
   callbacks: {
     session({ session, user }) {
       const dbUser = user as typeof user & {
