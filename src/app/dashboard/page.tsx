@@ -138,7 +138,14 @@ export default async function DashboardPage({ searchParams }: PageProps<"/dashbo
             <h2 className="text-lg font-semibold">Your Tools</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {availableTools.map((tool) => (
-                <Card key={tool.title} className={tool.href ? "relative transition-colors hover:bg-muted/50" : undefined}>
+                <Card
+                  key={tool.title}
+                  className={
+                    tool.href
+                      ? "relative transition-colors hover:bg-muted/50"
+                      : "border-dashed opacity-60 shadow-none"
+                  }
+                >
                   <CardHeader>
                     <div className="flex items-center justify-between gap-3">
                       <CardTitle className="text-base">

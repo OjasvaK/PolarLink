@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth, signOut } from "@/auth";
+import { NavLink } from "@/components/nav-link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { Role } from "@/generated/prisma/enums";
@@ -20,7 +21,8 @@ export async function AppHeader() {
   const role = session?.user?.role ?? "PUBLIC";
 
   return (
-    <header className="border-b">
+    <header className="relative border-b">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/0 via-primary to-primary/0" />
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
         <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 max-sm:w-full">
           <Link href="/" className="text-lg font-semibold tracking-tight">
@@ -30,9 +32,9 @@ export async function AppHeader() {
             {nav
               .filter((item) => hasRole(role, item.minimum))
               .map((item) => (
-                <Link key={item.href} href={item.href} className="hover:text-foreground">
+                <NavLink key={item.href} href={item.href}>
                   {item.label}
-                </Link>
+                </NavLink>
               ))}
           </nav>
         </div>

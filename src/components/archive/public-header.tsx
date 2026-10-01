@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth } from "@/auth";
+import { NavLink } from "@/components/nav-link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -19,7 +20,8 @@ export async function PublicHeader() {
   const session = await auth();
 
   return (
-    <header className="border-b bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="relative border-b bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/0 via-primary to-primary/0" />
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
         <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 max-sm:w-full">
           <Link href="/" className="text-lg font-semibold tracking-tight">
@@ -27,9 +29,9 @@ export async function PublicHeader() {
           </Link>
           <nav aria-label="Archive" className="-mx-6 flex w-[calc(100%+3rem)] items-center gap-x-5 overflow-x-auto px-6 pb-1 text-sm whitespace-nowrap text-muted-foreground sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 sm:whitespace-normal">
             {archiveNav.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:text-foreground">
+              <NavLink key={item.href} href={item.href}>
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
           </nav>
         </div>

@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
 import { AppHeader } from "@/components/app-header";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { requireRole } from "@/lib/auth-guard";
@@ -71,12 +82,35 @@ export default async function ResearcherRequestsPage() {
                           Approve
                         </Button>
                       </form>
-                      <form action={rejectResearcher}>
+                      <form id={`reject-researcher-${request.id}`} action={rejectResearcher}>
                         <input type="hidden" name="userId" value={request.id} />
-                        <Button type="submit" size="sm" variant="outline">
-                          Reject
-                        </Button>
                       </form>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button type="button" size="sm" variant="outline">
+                            Reject
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Reject this request?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              {request.name ?? request.email ?? "This user"} will be told their researcher
+                              access request was rejected. They can request again later.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              type="submit"
+                              form={`reject-researcher-${request.id}`}
+                              variant="destructive"
+                            >
+                              Reject Request
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </CardContent>
                 </Card>

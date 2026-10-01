@@ -6,6 +6,17 @@ import { ContentDetails } from "@/components/content/content-details";
 import { ContentForm } from "@/components/content/content-form";
 import { StatusBadge } from "@/components/content/status-badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { requireRole } from "@/lib/auth-guard";
 import { getContent, latestReview, ownerOf, publishedExpeditionOptions } from "@/lib/content/repo";
@@ -69,12 +80,31 @@ export default async function SubmissionPage({ params }: PageProps<"/submissions
                 expeditions={expeditions}
               />
             </div>
-            <form action={deleteSubmission} className="mt-10 border-t pt-6">
+            <form id="delete-draft-form" action={deleteSubmission} className="mt-10 border-t pt-6">
               <input type="hidden" name="slug" value={slug} />
               <input type="hidden" name="id" value={id} />
-              <Button type="submit" variant="ghost" size="sm" className="text-destructive">
-                Delete This Draft
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button type="button" variant="ghost" size="sm" className="text-destructive">
+                    Delete This Draft
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete this draft?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This permanently removes {String(item[type.titleField])} and its contents. This
+                      can&rsquo;t be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction type="submit" form="delete-draft-form" variant="destructive">
+                      Delete Draft
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </form>
           </>
         ) : (
@@ -83,13 +113,36 @@ export default async function SubmissionPage({ params }: PageProps<"/submissions
               <ContentDetails slug={slug} item={item} />
             </div>
             {item.status === "PENDING" && (
-              <form action={withdrawSubmission} className="mt-10 flex flex-wrap items-center gap-4 border-t pt-6">
+              <form
+                id="withdraw-submission-form"
+                action={withdrawSubmission}
+                className="mt-10 flex flex-wrap items-center gap-4 border-t pt-6"
+              >
                 <input type="hidden" name="slug" value={slug} />
                 <input type="hidden" name="id" value={id} />
                 <p className="text-sm text-muted-foreground">Waiting for an editor to review this.</p>
-                <Button type="submit" variant="outline" size="sm">
-                  Withdraw to Edit
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button type="button" variant="outline" size="sm">
+                      Withdraw to Edit
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Withdraw from review?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This pulls the submission out of the review queue and reopens it for editing. You
+                        can resubmit once you&rsquo;re done.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction type="submit" form="withdraw-submission-form">
+                        Withdraw
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </form>
             )}
           </>

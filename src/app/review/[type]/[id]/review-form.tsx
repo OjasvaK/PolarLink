@@ -2,6 +2,17 @@
 
 import { useActionState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,7 +28,7 @@ export function ReviewForm({
   const formRef = useFocusFirstError<HTMLFormElement>(state.error);
 
   return (
-    <form ref={formRef} action={formAction} className="grid gap-4">
+    <form ref={formRef} id="review-form" action={formAction} className="grid gap-4">
       {state.error && (
         <Alert variant="destructive" id="review-error">
           <AlertDescription>{state.error}</AlertDescription>
@@ -40,12 +51,58 @@ export function ReviewForm({
         <Button type="submit" name="decision" value="APPROVED" disabled={pending}>
           Approve and Publish
         </Button>
-        <Button type="submit" name="decision" value="CHANGES_REQUESTED" variant="outline" disabled={pending}>
-          Request Changes
-        </Button>
-        <Button type="submit" name="decision" value="REJECTED" variant="destructive" disabled={pending}>
-          Reject
-        </Button>
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button type="button" variant="outline" disabled={pending}>
+              Request Changes
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Request changes?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This sends the submission back to the author as a draft, with your comment attached. They
+                can resubmit once it&rsquo;s updated.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction type="submit" form="review-form" name="decision" value="CHANGES_REQUESTED">
+                Request Changes
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button type="button" variant="destructive" disabled={pending}>
+              Reject
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Reject this submission?</AlertDialogTitle>
+              <AlertDialogDescription>
+                The author will see this as rejected, along with your comment. They can still edit and
+                resubmit it later.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                type="submit"
+                form="review-form"
+                name="decision"
+                value="REJECTED"
+                variant="destructive"
+              >
+                Reject Submission
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </form>
   );
